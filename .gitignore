@@ -1,0 +1,23 @@
+# Rust (Cargo.lock is committed — workspace ships binaries)
+target/
+**/*.rs.bk
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Experiment artifacts (regenerable; curated results live in docs/figures + results/)
+sim/outputs/
+*.ckpt
+wandb/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
