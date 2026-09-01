@@ -1,0 +1,12 @@
+Loading weights from local directory
+[keys after pre] {'observation.image': (1, 3, 96, 96), 'observation.state': (1, 2)}
+[batch] B= 1:    2843 ms/chunk-batch  =   2843 ms per env-chunk  | peak VRAM 2179 MiB
+[batch] B= 2:    2779 ms/chunk-batch  =   1389 ms per env-chunk  | peak VRAM 2180 MiB
+[batch] B= 4:    2820 ms/chunk-batch  =    705 ms per env-chunk  | peak VRAM 2182 MiB
+[batch] B= 8:    3009 ms/chunk-batch  =    376 ms per env-chunk  | peak VRAM 2189 MiB
+[batch] B=16:    3416 ms/chunk-batch  =    213 ms per env-chunk  | peak VRAM 2244 MiB
+[batch] B=32:    3921 ms/chunk-batch  =    123 ms per env-chunk  | peak VRAM 2387 MiB
+[overlap] default chunk shape (8, 2); override chunk shape (15, 2)
+[overlap] default reproducible with same seed: True
+[overlap] executed 8-prefix identical (bitwise): True   max|diff|=0.000e+00
+[done]
