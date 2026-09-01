@@ -1,0 +1,393 @@
+[
+ {
+  "id": "WP-0",
+  "title": "SKELETON: workspace, manifests, lib.rs/main.rs/cmd/mod.rs, every todo!() stub incl. wire payload structs, pre-declared dev-deps, envelopes/pusht.base.toml + placeholder fixtures, CI, Makefile, pyproject, docs copies",
+  "files": [
+   "Cargo.toml",
+   "Cargo.lock",
+   "rust-toolchain.toml",
+   "rustfmt.toml",
+   ".cargo/config.toml",
+   "Makefile",
+   ".gitignore",
+   "LICENSE",
+   "pyproject.toml",
+   ".github/workflows/ci.yml",
+   "crates/lictor-core/Cargo.toml",
+   "crates/lictor-core/src/lib.rs",
+   "crates/lictor-canon/Cargo.toml",
+   "crates/lictor-canon/src/lib.rs",
+   "crates/lictor-detect/Cargo.toml",
+   "crates/lictor-detect/src/lib.rs",
+   "crates/lictor-fuse/Cargo.toml",
+   "crates/lictor-fuse/src/lib.rs",
+   "crates/lictor-receipt/Cargo.toml",
+   "crates/lictor-receipt/src/lib.rs",
+   "crates/lictor-runtime/Cargo.toml",
+   "crates/lictor-runtime/src/lib.rs",
+   "crates/lictor-calib/Cargo.toml",
+   "crates/lictor-calib/src/lib.rs",
+   "crates/lictor-cli/Cargo.toml",
+   "crates/lictor-cli/src/main.rs",
+   "crates/lictor-cli/src/cmd/mod.rs",
+   "crates/lictor-cli/build.rs",
+   "harness/__init__.py",
+   "harness/tests/__init__.py",
+   "adapters/__init__.py",
+   "adapters/tests/__init__.py",
+   "docs/ARCHITECTURE.md",
+   "docs/IMPLEMENTATION_PLAN.md",
+   "docs/ANALYSIS.md"
+  ],
+  "depends_on": [],
+  "summary": "Runs alone first (~60 min). Writes the workspace (libm unconditional; detect/fuse depend on core with default-features=false; fuse dev-depends on runtime; all dev-deps pre-declared), every lib.rs/main.rs (main.rs deny(unsafe_code) + #[allow(unsafe_code)] mod alloc_count), cmd/mod.rs with CrashReceipt, build.rs (rerun-if-changed .git/HEAD), Makefile (nostd-check = --no-default-features), CI, pyproject.toml, .gitignore, Cargo.lock, and every STUB module with the frozen signatures incl. Default/is_empty impls, FuseState #[default] Idle, hand-written Tally::default, and all wire payload structs; writes envelopes/pusht.base.toml byte-for-byte and [] placeholder brake/tier1 fixtures so every include_str! resolves. Acceptance: build + clippy -D warnings + fmt + nostd-check green on stubs. Compile-level dependency of every other package; STUB files (core/detect/fuse/canon/receipt/calib/runtime modules, cmd/*.rs, render.rs, alloc_count.rs, bench/run_all.sh, scripts/ci_python.sh, pusht.base.toml, two placeholder cases.json) are handed over to their owners."
+ },
+ {
+  "id": "WP-1",
+  "title": "Core types, envelope, TOML, compile(), brake feasibility",
+  "files": [
+   "crates/lictor-core/src/fmath.rs",
+   "crates/lictor-core/src/chunk.rs",
+   "crates/lictor-core/src/envelope.rs",
+   "crates/lictor-core/src/scores.rs",
+   "crates/lictor-core/src/verdict.rs",
+   "crates/lictor-core/src/state.rs",
+   "crates/lictor-core/src/reason.rs",
+   "crates/lictor-core/src/ack.rs",
+   "crates/lictor-core/tests/envelope_fixture.rs",
+   "crates/lictor-core/tests/chunk.rs",
+   "crates/lictor-core/tests/reason_glossary.rs",
+   "crates/lictor-core/tests/fixtures/envelope/pusht_base.toml",
+   "crates/lictor-core/tests/fixtures/envelope/invalid_*.toml",
+   "crates/lictor-core/tests/fixtures/envelope/digest.json",
+   "crates/lictor-detect/src/brake.rs",
+   "crates/lictor-detect/tests/brake.rs",
+   "crates/lictor-detect/tests/fixtures/brake/cases.json",
+   "crates/lictor-detect/tests/fixtures/brake/gen.py",
+   "envelopes/pusht.base.toml"
+  ],
+  "depends_on": [
+   "WP-0"
+  ],
+  "summary": "Core frozen types (fmath, chunk IR, envelope TOML/validate/compile incl. embodiment_digest, provides_vel, horizon_ticks, n<=63, scores, verdict, state with Default, reason glossary, ack) and brake feasibility (exact PD rollout from row idx, v0 = simulator velocity; closed-form kinds) with a Python-generated fixture; owns envelopes/pusht.base.toml after WP-0 writes it."
+ },
+ {
+  "id": "WP-2",
+  "title": "Detectors: Tier-0 limits + projection, windowing, Tier-1 features, conformal runtime",
+  "files": [
+   "crates/lictor-detect/src/tier0.rs",
+   "crates/lictor-detect/src/window.rs",
+   "crates/lictor-detect/src/tier1.rs",
+   "crates/lictor-detect/src/conformal.rs",
+   "crates/lictor-detect/tests/tier0.rs",
+   "crates/lictor-detect/tests/window.rs",
+   "crates/lictor-detect/tests/tier1.rs",
+   "crates/lictor-detect/tests/conformal.rs",
+   "crates/lictor-detect/tests/fixtures/tier0/cases.json",
+   "crates/lictor-detect/tests/fixtures/tier1/cases.json",
+   "crates/lictor-detect/tests/fixtures/conformal/cases.json",
+   "crates/lictor-detect/tests/fixtures/tier1/gen.py"
+  ],
+  "depends_on": [
+   "WP-0",
+   "WP-1"
+  ],
+  "summary": "Detectors: Tier-0 limits + direction-preserving projection, K-of-N window + Trail (is_empty/Default), Tier-1 features (manifest-only speed_peak/stall; features() is the SOLE writer of rt.prev, raw-vs-raw TCE; overlap from t_emit differences), conformal standardise/aggregate/trip; numpy-generated fixtures to 1e-12."
+ },
+ {
+  "id": "WP-3",
+  "title": "The fuse: decide(), state machine, FuseRt, Tally",
+  "files": [
+   "crates/lictor-fuse/src/fuse.rs",
+   "crates/lictor-fuse/src/fsm.rs",
+   "crates/lictor-fuse/src/tally.rs",
+   "crates/lictor-fuse/tests/state_machine.rs",
+   "crates/lictor-fuse/tests/observe_passthrough.rs",
+   "crates/lictor-fuse/tests/decide_order.rs",
+   "crates/lictor-fuse/tests/fixtures/fsm/transitions.json",
+   "crates/lictor-fuse/tests/fixtures/episode/synthetic_300.json",
+   "crates/lictor-fuse/tests/common/mod.rs"
+  ],
+  "depends_on": [
+   "WP-0",
+   "WP-1",
+   "WP-2"
+  ],
+  "summary": "The fuse: decide() with the nine ordered stages incl. GUARD time/chunk-seq continuity and brake_feasible(from=idx), never writing t1.prev; fsm::next over the 24-row table (17b for clamp_mode=Off); FuseRt (+Default, last_t, next_chunk_seq) and Tally (hand-written Default with NEG_INFINITY max_s/max_z); observe pass-through and decide-order tests."
+ },
+ {
+  "id": "WP-4",
+  "title": "Canonical encoding (JCS float-free), receipts, chains, ledger, handoff/ack, signing, history, keys, and the stdlib Python verifier",
+  "files": [
+   "crates/lictor-canon/src/jcs.rs",
+   "crates/lictor-canon/src/f64enc.rs",
+   "crates/lictor-canon/src/digest.rs",
+   "crates/lictor-canon/tests/rfc8785.rs",
+   "crates/lictor-canon/tests/key_charset.rs",
+   "crates/lictor-canon/tests/floatify.rs",
+   "crates/lictor-canon/tests/fixtures/jcs/vectors.json",
+   "crates/lictor-receipt/src/tick.rs",
+   "crates/lictor-receipt/src/body.rs",
+   "crates/lictor-receipt/src/sign.rs",
+   "crates/lictor-receipt/src/ledger.rs",
+   "crates/lictor-receipt/src/curve.rs",
+   "crates/lictor-receipt/src/handoff.rs",
+   "crates/lictor-receipt/src/history.rs",
+   "crates/lictor-receipt/src/keys.rs",
+   "crates/lictor-receipt/tests/chain.rs",
+   "crates/lictor-receipt/tests/tamper.rs",
+   "crates/lictor-receipt/tests/ledger.rs",
+   "crates/lictor-receipt/tests/ack.rs",
+   "crates/lictor-receipt/tests/history.rs",
+   "crates/lictor-receipt/tests/python_parity.rs",
+   "crates/lictor-receipt/tests/fixtures/receipt/receipt_000007.json",
+   "crates/lictor-receipt/tests/fixtures/receipt/ticks_000007.jsonl",
+   "crates/lictor-receipt/tests/fixtures/receipt/timing_000007.jsonl",
+   "crates/lictor-receipt/tests/fixtures/receipt/ledger.jsonl",
+   "crates/lictor-receipt/tests/fixtures/receipt/key.hex",
+   "crates/lictor-receipt/tests/fixtures/receipt/pubkey.txt",
+   "crates/lictor-receipt/tests/fixtures/receipt/operator.hex",
+   "crates/lictor-receipt/tests/fixtures/receipt/handoff.json",
+   "crates/lictor-receipt/tests/fixtures/receipt/ack.json",
+   "adapters/verify_receipt.py",
+   "adapters/tests/test_verify.py",
+   "docs/receipt-schema.md"
+  ],
+  "depends_on": [
+   "WP-0"
+  ],
+  "summary": "JCS float-free canon (F64Hex/F64Array/floatify), tick + timing chains, ReceiptBody/VerdictCounts/evaluate_fuse(ephemeral_key), sign/verify (pubkey_ok, envelope_digest_ok, counts_ok, TEST_PUBKEYS), ledger, HandoffRecord (run/arm/episode bound; no state_digest) + ack verify with persisted nonces, curve sign/verify with DeltaCi metrics, history, keys (default dir $LICTOR_KEYS/$HOME/.lictor; refuses DrvFs and overwrite), the stdlib Python verifier with --pubkey and key-regex assert, fixtures incl. re-chain and re-sign tampers, docs/receipt-schema.md."
+ },
+ {
+  "id": "WP-5",
+  "title": "Offline calibration, envelope fit, metrics, Layer-A sweep, Layer-B curve (+ their CLI commands)",
+  "files": [
+   "crates/lictor-calib/src/file.rs",
+   "crates/lictor-calib/src/traces.rs",
+   "crates/lictor-calib/src/calibrate.rs",
+   "crates/lictor-calib/src/envfit.rs",
+   "crates/lictor-calib/src/metrics.rs",
+   "crates/lictor-calib/src/sweep.rs",
+   "crates/lictor-calib/src/curve.rs",
+   "crates/lictor-calib/tests/quantile.rs",
+   "crates/lictor-calib/tests/coverage.rs",
+   "crates/lictor-calib/tests/metrics.rs",
+   "crates/lictor-calib/tests/binning.rs",
+   "crates/lictor-calib/tests/sweep_synthetic.rs",
+   "crates/lictor-calib/tests/curve_refusals.rs",
+   "crates/lictor-calib/tests/fixtures/calib/synthetic_traces.json",
+   "crates/lictor-calib/tests/fixtures/calib/expected.json",
+   "crates/lictor-cli/src/cmd/calibrate.rs",
+   "crates/lictor-cli/src/cmd/sweep.rs",
+   "crates/lictor-cli/src/cmd/curve.rs",
+   "crates/lictor-cli/src/cmd/envelope.rs",
+   "docs/calibration.md"
+  ],
+  "depends_on": [
+   "WP-0",
+   "WP-1",
+   "WP-2",
+   "WP-4",
+   "WP-6"
+  ],
+  "summary": "Offline lane: CalibrationFile (n_total/n_scale/n_calib/split/embodiment_digest; SeedPool, Tier0Percentiles), load_traces via runtime TraceReader, split-CP calibrate (2-way approximate / --split 3 exact; horizon_ticks and pool checks), envelope fit (--operator oracle envelope; embodiment untouched), metrics (CP, McNemar, bootstrap, PoNR, ROC, AUCPDT), sweep (reuses calibration artefacts, tau_source), curve from receipts only (refusals: broken ledger, mixed/ephemeral keys, tier1/alpha vs run.json, index-set/declared-pool mismatch unless --partial, n<100 unless --allow-small; both deltas with CIs; tce_valid_frac; cross-run mismatches) + calibrate/sweep/curve/envelope CLIs and docs/calibration.md with n=137/59/45 worked numbers."
+ },
+ {
+  "id": "WP-6",
+  "title": "Runtime: wire schema + codec, Session, episode writer, latency histogram, trace files, `lictor serve`, Python client",
+  "files": [
+   "crates/lictor-runtime/src/wire.rs",
+   "crates/lictor-runtime/src/codec.rs",
+   "crates/lictor-runtime/src/session.rs",
+   "crates/lictor-runtime/src/episode.rs",
+   "crates/lictor-runtime/src/latency.rs",
+   "crates/lictor-runtime/src/trace.rs",
+   "crates/lictor-runtime/tests/roundtrip.rs",
+   "crates/lictor-runtime/tests/session_fault.rs",
+   "crates/lictor-runtime/tests/session_episode.rs",
+   "crates/lictor-runtime/tests/fixtures/wire/golden_requests.ndjson",
+   "crates/lictor-runtime/tests/fixtures/wire/golden_responses.ndjson",
+   "crates/lictor-runtime/tests/fixtures/wire/bad_lines.ndjson",
+   "crates/lictor-cli/src/cmd/serve.rs",
+   "crates/lictor-cli/src/cmd/crash_receipt.rs",
+   "adapters/lictor_client.py",
+   "adapters/tests/test_client.py",
+   "docs/wire-protocol.md"
+  ],
+  "depends_on": [
+   "WP-0",
+   "WP-1",
+   "WP-2",
+   "WP-3",
+   "WP-4"
+  ],
+  "summary": "Runtime: wire payload structs with deny_unknown_fields everywhere, codec, Staging (the one wire->TickInput conversion), Session (embodiment/policy digest refusals, note_io_ns, episode_end accepted while faulted, nonces across episodes, inputs lictor:* keys, latency_label), episode writer + write_crash_episode, Hist, trace files, lictor serve and lictor crash-receipt, the Python client (LictorFault kills the child; null->inf mapping; allow_nan=False; hello asserts tier1/alpha; chunk_msg), docs/wire-protocol.md."
+ },
+ {
+  "id": "WP-7",
+  "title": "CLI: verify, replay, selftest, ledger, key, ack, history, version, render",
+  "files": [
+   "crates/lictor-cli/src/cmd/verify.rs",
+   "crates/lictor-cli/src/cmd/replay.rs",
+   "crates/lictor-cli/src/cmd/selftest.rs",
+   "crates/lictor-cli/src/cmd/ledger.rs",
+   "crates/lictor-cli/src/cmd/key.rs",
+   "crates/lictor-cli/src/cmd/ack.rs",
+   "crates/lictor-cli/src/cmd/history.rs",
+   "crates/lictor-cli/src/cmd/version.rs",
+   "crates/lictor-cli/src/render.rs",
+   "crates/lictor-cli/tests/cli.rs",
+   "crates/lictor-cli/tests/fixtures/cli/README.md"
+  ],
+  "depends_on": [
+   "WP-0",
+   "WP-3",
+   "WP-4",
+   "WP-6"
+  ],
+  "summary": "CLI rest: verify (pubkey/envelope/counts lines, HEAD MISMATCH, ticks header cross-check, --calibration, test-key WARNING), replay, selftest ([skip] on empty placeholder fixtures; four tampers), ledger, key init/pub (--force, --i-know, custody line), ack, history, version, render (control characters stripped)."
+ },
+ {
+  "id": "WP-8",
+  "title": "PushT harness: lerobot compat + migration, policy with the n_action_steps=15 override, executor with delay injection, arms, resumable paired-seed runner, fault injection, replay policy, microbench",
+  "files": [
+   "harness/compat.py",
+   "harness/seeds.py",
+   "harness/pusht_rollout.py",
+   "harness/executor.py",
+   "harness/inject.py",
+   "harness/policy_replay.py",
+   "harness/arms.py",
+   "harness/run.py",
+   "harness/microbench.py",
+   "harness/env.sh",
+   "harness/requirements.txt",
+   "harness/README.md",
+   "harness/tests/test_h15.py",
+   "harness/tests/test_executor.py",
+   "harness/tests/test_harness.py",
+   "harness/tests/test_seeds.py"
+  ],
+  "depends_on": [
+   "WP-0",
+   "WP-6"
+  ],
+  "summary": "PushT harness: compat (import lerobot.policies first; migrated checkpoint path; migration script named; bindings from importlib.metadata; inputs manifest), pusht_rollout (offline predict_action_chunk path with the six h15 asserts; vel_agent; coverage at t=0; wire labelling per exec mode; episode_end after fatal; fuse_crash handling), executor, inject, policy_replay, arms (tier1/alpha declared; oracle envelope), run.py (--plan --budget-min refusals, 1-vs-2 worker probe, crash-receipt + respawn, cross-run compare), microbench (day-0 gate), seeds (hash64 mod 2^64 with vectors), requirements (opencv-python-headless pinned). First deliverable: measured s/episode at B=1 and the h15 result."
+ },
+ {
+  "id": "WP-9",
+  "title": "Analysis, statistics, figures, experiment write-up, reproduction guide",
+  "files": [
+   "harness/analyze.py",
+   "harness/stats.py",
+   "harness/figures.py",
+   "harness/tests/test_stats.py",
+   "harness/tests/test_figures.py",
+   "docs/EXPERIMENT.md",
+   "docs/REPRODUCE.md",
+   "docs/figures/.gitkeep"
+  ],
+  "depends_on": [
+   "WP-0"
+  ],
+  "summary": "Analysis/figures/docs: stats.py cross-checks, analyze.py consuming summary.csv deltas verbatim, figures F1-F9 (hollow pilot points, tce_valid_frac bar, WSL2 latency_label captions, t_fail=0 artefact), docs/EXPERIMENT.md and docs/REPRODUCE.md (220-episode pilot, WSL2 sentence on every timing table)."
+ },
+ {
+  "id": "WP-10",
+  "title": "Bench vectors, alloc/determinism tests, `lictor bench`, demo, CI scripts, fixtures",
+  "files": [
+   "bench/README.md",
+   "bench/run_all.sh",
+   "bench/fixtures/gen_synthetic.py",
+   "bench/latency/run_experiment.sh",
+   "bench/determinism/run_experiment.sh",
+   "bench/tamper/run_experiment.sh",
+   "bench/workspace-breach/run_experiment.sh",
+   "bench/brake/run_experiment.sh",
+   "bench/failure-prediction/run_experiment.sh",
+   "bench/fixtures/traces/pusht_000007.ndjson",
+   "bench/fixtures/traces/breach.ndjson",
+   "bench/fixtures/traces/brake.ndjson",
+   "bench/fixtures/traces/failpred/",
+   "bench/fixtures/chunks/pusht_chunks.ndjson",
+   "bench/fixtures/calibration.a05.json",
+   "bench/fixtures/key.hex",
+   "bench/fixtures/envelope.toml",
+   "crates/lictor-cli/src/cmd/bench.rs",
+   "crates/lictor-cli/src/alloc_count.rs",
+   "crates/lictor-fuse/tests/alloc.rs",
+   "crates/lictor-fuse/tests/determinism.rs",
+   "scripts/demo.sh",
+   "scripts/ci_python.sh"
+  ],
+  "depends_on": [
+   "WP-0",
+   "WP-3",
+   "WP-6",
+   "WP-7",
+   "WP-8"
+  ],
+  "summary": "Bench vectors and CI: alloc_count.rs (gated always-installed counting allocator), lictor bench (size_of line, X placeholders), fuse tests alloc.rs/determinism.rs via runtime Staging, synthetic fixture generator, latency/determinism/tamper (re-chain, re-sign, --pubkey)/workspace-breach/brake/failure-prediction (--allow-small) vectors, run_all.sh, ci_python.sh, demo.sh."
+ },
+ {
+  "id": "WP-11",
+  "title": "Adapter stubs: LeRobot ProcessorStep and openpi websocket proxy (roadmap-level, importable, clearly labelled UNVERIFIED)",
+  "files": [
+   "adapters/lerobot/__init__.py",
+   "adapters/lerobot/lictor_lerobot.py",
+   "adapters/openpi/__init__.py",
+   "adapters/openpi/lictor_proxy.py",
+   "adapters/README.md",
+   "adapters/tests/test_lerobot_stub.py",
+   "adapters/tests/test_openpi_stub.py"
+  ],
+  "depends_on": [
+   "WP-0"
+  ],
+  "summary": "Roadmap adapter stubs, clearly labelled UNVERIFIED: LeRobot ProcessorStep wrapper and openpi websocket proxy skeleton, importable without lerobot/openpi, with unit tests and adapters/README.md."
+ },
+ {
+  "id": "WP-12",
+  "title": "README (house style), verdict schema, envelope schema, SECURITY, banner, research index",
+  "files": [
+   "README.md",
+   "SECURITY.md",
+   "docs/verdict-schema.md",
+   "docs/envelope-schema.md",
+   "docs/banner.svg",
+   "research/README.md",
+   "CONTRIBUTING.md"
+  ],
+  "depends_on": [
+   "WP-0"
+  ],
+  "summary": "README in house style (trust-model sentence, precise tamper wording, WSL2 badge label, honest boundary in full, authorship crediting Claude), SECURITY.md (trust model, key custody, committed test keys, ack replay, declared-pool truncation), verdict/envelope schema docs, banner, research index, CONTRIBUTING; acceptance grep covers the extended banned vocabulary."
+ },
+ {
+  "id": "WP-13",
+  "title": "INTEGRATION (last): cross-package fixes, real fixtures from the smoke run, fitted envelopes, generated outputs, README numbers, pilot hand-off",
+  "files": [
+   "envelopes/pusht.toml",
+   "envelopes/pusht.oracle.toml",
+   "docs/envelope_fit_report.md",
+   "docs/figures/*.svg",
+   "research/*.md (memos; not research/README.md)",
+   "(fixes anywhere, logged)"
+  ],
+  "depends_on": [
+   "WP-1",
+   "WP-2",
+   "WP-3",
+   "WP-4",
+   "WP-5",
+   "WP-6",
+   "WP-7",
+   "WP-8",
+   "WP-9",
+   "WP-10",
+   "WP-11",
+   "WP-12"
+  ],
+  "summary": "Integration last: full workspace green, selftest, bench vectors, CI python, 20-episode smoke through the real fuse, curve --allow-small, replay 40/40; replaces synthetic fixtures with real traces; commits fitted envelopes (pusht.toml, pusht.oracle.toml), the fit report, figures and memos; fills README numbers; hands over the pilot commands with --plan output."
+ }
+]
