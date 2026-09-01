@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: MIT
+[toolchain]
+channel = "stable"
+components = ["rustfmt", "clippy"]

@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: MIT
+[package]
+name = "lictor-runtime"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "lictor-runtime: lictor-wire/v1 schema and codec, Session, episode writer, latency histogram, trace files (does NOT depend on lictor-calib)"
+
+[dependencies]
+lictor-core = { workspace = true, features = ["std"] }
+lictor-detect = { workspace = true, features = ["std"] }
+lictor-fuse = { workspace = true, features = ["std"] }
+lictor-receipt = { workspace = true }
+lictor-canon = { workspace = true }
+serde = { workspace = true, features = ["std"] }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+hdrhistogram = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }
+lictor-calib = { workspace = true }    # dev-dependency cycle (legal): calibration fixtures for session tests

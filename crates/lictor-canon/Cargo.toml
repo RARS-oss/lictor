@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: MIT
+[package]
+name = "lictor-canon"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "lictor-canon: RFC 8785 JCS over the float-free profile (jcs-floatfree/v1), F64Hex / F64Array, floatify, sha256"
+
+[dependencies]
+serde = { workspace = true, features = ["std"] }
+serde_json = { workspace = true }
+sha2 = { workspace = true }
+hex = { workspace = true }
+base64 = { workspace = true }
+thiserror = { workspace = true }

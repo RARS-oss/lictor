@@ -1,0 +1,35 @@
+# SPDX-License-Identifier: MIT
+[package]
+name = "lictor-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "lictor: the command-line binary -- serve, verify, replay, calibrate, sweep, curve, envelope, bench, selftest, ledger, crash-receipt, key, ack, history, version"
+build = "build.rs"
+
+[[bin]]
+name = "lictor"
+path = "src/main.rs"
+
+[dependencies]
+lictor-core = { workspace = true, features = ["std"] }
+lictor-canon = { workspace = true }
+lictor-detect = { workspace = true, features = ["std"] }
+lictor-fuse = { workspace = true, features = ["std"] }
+lictor-receipt = { workspace = true }
+lictor-runtime = { workspace = true }
+lictor-calib = { workspace = true }
+serde = { workspace = true, features = ["std"] }
+serde_json = { workspace = true }
+toml = { workspace = true }
+sha2 = { workspace = true }
+hex = { workspace = true }
+clap = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+hdrhistogram = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }
+serde_json = { workspace = true }

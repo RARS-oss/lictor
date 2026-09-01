@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: MIT
+[package]
+name = "lictor-fuse"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "lictor-fuse: decide(), the escalation state machine, FuseRt and Tally -- the zero-allocation decision path (no_std-capable)"
+
+[features]
+default = ["std"]
+std = ["lictor-core/std", "lictor-detect/std"]
+
+[dependencies]
+lictor-core = { workspace = true, default-features = false }
+lictor-detect = { workspace = true, default-features = false }
+
+[dev-dependencies]
+serde_json = { workspace = true }
+lictor-runtime = { workspace = true }    # dev-dependency cycle (legal): Staging + TraceReader for tests/alloc.rs, tests/determinism.rs
+lictor-canon = { workspace = true }

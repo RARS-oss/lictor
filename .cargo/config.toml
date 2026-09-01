@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: MIT
+# No target-dir here on purpose: CARGO_TARGET_DIR is mandatory (C: is full) and documented in the Makefile header.
+[build]
+rustflags = ["-D", "warnings"]

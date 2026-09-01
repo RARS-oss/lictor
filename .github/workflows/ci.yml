@@ -1,0 +1,36 @@
+# SPDX-License-Identifier: MIT
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+env:
+  RUSTFLAGS: -D warnings
+  CARGO_TARGET_DIR: ${{ github.workspace }}/target
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - name: fmt
+        run: cargo fmt --all --check
+      - name: clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+      - name: test
+        run: cargo test --workspace
+      - name: nostd-check
+        run: make nostd-check
+      - name: build release
+        run: cargo build --release -p lictor-cli
+      - name: bench vectors
+        run: bash bench/run_all.sh "$CARGO_TARGET_DIR/release/lictor"
+      - name: python (no GPU, no torch)
+        run: bash scripts/ci_python.sh
+      - name: stdlib receipt verifier
+        run: python3 adapters/verify_receipt.py crates/lictor-receipt/tests/fixtures/receipt/receipt_000007.json | grep -q '^OK'

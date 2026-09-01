@@ -1,20 +1,31 @@
-# Rust (Cargo.lock is committed — workspace ships binaries)
+# Rust (Cargo.lock is committed -- the workspace ships a binary). Build into CARGO_TARGET_DIR, never into the repo.
+/target
 target/
 **/*.rs.bk
+
+# Experiment outputs (regenerable; curated results live in docs/figures and the memos under research/)
+/results
+sim/outputs/
+*.ckpt
+wandb/
+*.svg.tmp
+
+# Keys never live in the repo. The two committed TEST keys are force-added:
+#   crates/lictor-receipt/tests/fixtures/receipt/key.hex      # test key
+#   crates/lictor-receipt/tests/fixtures/receipt/operator.hex # test key
+#   bench/fixtures/key.hex                                    # test key
+*.hex
+.lictor/
 
 # Python
 __pycache__/
 *.pyc
 .venv/
 venv/
+/venv
 *.egg-info/
 .pytest_cache/
 .ruff_cache/
-
-# Experiment artifacts (regenerable; curated results live in docs/figures + results/)
-sim/outputs/
-*.ckpt
-wandb/
 
 # OS / editor
 .DS_Store

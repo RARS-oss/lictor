@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: MIT
+[package]
+name = "lictor-receipt"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "lictor-receipt: tick/timing chains, receipt bodies, Ed25519 signing and verification, ledger, curve receipts, handoff/ack, history, keys"
+
+[dependencies]
+lictor-core = { workspace = true, features = ["std"] }
+lictor-canon = { workspace = true }
+lictor-fuse = { workspace = true, features = ["std"] }
+serde = { workspace = true, features = ["std"] }
+serde_json = { workspace = true }
+sha2 = { workspace = true }
+hex = { workspace = true }
+ed25519-dalek = { workspace = true }
+getrandom = { workspace = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }

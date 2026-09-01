@@ -1,0 +1,18 @@
+# SPDX-License-Identifier: MIT
+[package]
+name = "lictor-detect"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "lictor-detect: Tier-0 limits and projection, brake feasibility, K-of-N window, Tier-1 features, conformal runtime (no_std-capable)"
+
+[features]
+default = ["std"]
+std = ["lictor-core/std"]
+
+[dependencies]
+lictor-core = { workspace = true, default-features = false }
+
+[dev-dependencies]
+serde_json = { workspace = true }

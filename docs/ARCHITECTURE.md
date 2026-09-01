@@ -167,10 +167,10 @@ repository = "https://github.com/RARS-oss/lictor"
 description = "lictor: a deterministic safety fuse over learned robot policies -- failure prediction, geometric limit enforcement, human escalation, signed replayable receipts"
 
 [workspace.dependencies]
-lictor-core    = { path = "crates/lictor-core",    version = "0.1.0" }
+lictor-core    = { path = "crates/lictor-core",    version = "0.1.0", default-features = false }   # no_std-capable; std consumers add features = ["std"]
 lictor-canon   = { path = "crates/lictor-canon",   version = "0.1.0" }
-lictor-detect  = { path = "crates/lictor-detect",  version = "0.1.0" }
-lictor-fuse    = { path = "crates/lictor-fuse",    version = "0.1.0" }
+lictor-detect  = { path = "crates/lictor-detect",  version = "0.1.0", default-features = false }
+lictor-fuse    = { path = "crates/lictor-fuse",    version = "0.1.0", default-features = false }
 lictor-receipt = { path = "crates/lictor-receipt", version = "0.1.0" }
 lictor-runtime = { path = "crates/lictor-runtime", version = "0.1.0" }
 lictor-calib   = { path = "crates/lictor-calib",   version = "0.1.0" }
@@ -200,11 +200,13 @@ inherits = "dev"
 opt-level = 0
 ```
 
-Build discipline: `CARGO_TARGET_DIR` is NEVER hardcoded; `.cargo/config.toml` sets only `[build] rustflags = ["-D", "warnings"]`; every documented command is run with `CARGO_TARGET_DIR=/mnt/d/lictor/target` (C: is full; `harness/env.sh` exports it). `rust-toolchain.toml`: `channel = "stable"`, components `rustfmt, clippy`. `Cargo.lock` is committed (WP-0). `crates/lictor-cli/build.rs` emits `cargo:rustc-env=LICTOR_GIT=<short sha|nogit>`, `cargo:rustc-env=LICTOR_BUILD_UTC=...` and `cargo:rerun-if-changed=.git/HEAD` so `env!("LICTOR_GIT")` never fails on a fresh checkout without git. no_std check: `cargo check -p lictor-core -p lictor-detect -p lictor-fuse --no-default-features` (detect/fuse depend on core with `default-features = false` and forward `std`, so no_std is actually exercised).
+Build discipline: `CARGO_TARGET_DIR` is NEVER hardcoded; `.cargo/config.toml` sets only `[build] rustflags = ["-D", "warnings"]`; every documented command is run with `CARGO_TARGET_DIR=/mnt/d/lictor/target` (C: is full; `harness/env.sh` exports it). `rust-toolchain.toml`: `channel = "stable"`, components `rustfmt, clippy`. `Cargo.lock` is committed (WP-0). `crates/lictor-cli/build.rs` emits `cargo:rustc-env=LICTOR_GIT=<short sha|nogit>`, `cargo:rustc-env=LICTOR_BUILD_UTC=...` and `cargo:rerun-if-changed=.git/HEAD` so `env!("LICTOR_GIT")` never fails on a fresh checkout without git. no_std check: `cargo check -p lictor-core -p lictor-detect -p lictor-fuse --no-default-features` (detect/fuse depend on core with `default-features = false` and forward `std`, so no_std is actually exercised; the `default-features = false` MUST be on the `[workspace.dependencies]` entries for core/detect/fuse -- cargo ignores it when stated only on a `workspace = true` dependency -- and every std consumer adds `features = ["std"]`).
 
 ---
 
 ## 4. Frozen shared types
+
+WP-0 amendments (applied in the code and folded into the text below): (1) `Response::Verdict` carries `Box<VerdictMsg>` (clippy `large_enum_variant`, 672 vs 376 bytes; JSON unchanged); (2) `lictor_calib::sweep::sweep` takes `opts: &SweepOpts { method, horizon_ticks, eps_prog }` (clippy `too_many_arguments`, limit 7); (3) the `[workspace.dependencies]` entries for core/detect/fuse carry `default-features = false` and std consumers add `features = ["std"]` (otherwise cargo ignores the per-crate `default-features = false` and `make nostd-check` is a no-op).
 
 The complete public surface every crate codes against. Bodies are the owning work package's; signatures are frozen.
 
@@ -1063,7 +1065,7 @@ pub const PROTO: &str = "lictor-wire/v1";
 #[derive(Debug, Clone, serde::Deserialize)] #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
 pub enum Request { Hello(HelloReq), EpisodeBegin(EpisodeBeginReq), Tick(TickReq), EpisodeEnd(EpisodeEndReq), Bye(ByeReq) }
 #[derive(Debug, Clone, serde::Serialize)] #[serde(tag = "kind", rename_all = "snake_case")]
-pub enum Response { HelloOk(HelloOk), EpisodeOk(EpisodeOk), Verdict(VerdictMsg), EpisodeReceipt(EpisodeReceiptMsg), ByeOk { id: u64 }, Error(ErrorMsg) }
+pub enum Response { HelloOk(HelloOk), EpisodeOk(EpisodeOk), Verdict(Box<VerdictMsg>), EpisodeReceipt(EpisodeReceiptMsg), ByeOk { id: u64 }, Error(ErrorMsg) }
 // ---- request payloads (all `#[derive(Debug, Clone, serde::Deserialize)] #[serde(deny_unknown_fields)]`; keys == the WIRE PROTOCOL JSON)
 pub struct HelloReq { pub id: u64, pub proto: String, pub client: String, pub mode: FuseMode, pub embodiment_id: String, pub action_dim: u16,
     pub pos_dim: u16, pub horizon: u16, pub exec_steps: u16, pub envelope_digest: String, pub calibration_digest: Option<String> }
@@ -1210,7 +1212,8 @@ pub struct SweepPoint { /* exactly the sweep.jsonl keys in FILE FORMATS */ }
 /// `artefacts`: calibration.<alpha>.json files already produced by `lictor calibrate`; when an (alpha, gate, kn, method) matches one,
 /// its center/scale/tau are used VERBATIM (`tau_source: "artefact"`) so the Layer-A point is comparable to the Layer-B arm;
 /// otherwise a full fit with no holdout is done (`tau_source: "fit"`).
-pub fn sweep(calib: &[Trace], eval: &[Trace], alphas: &[(u32, u32)], dets: &[DetectorSpec], method: CalMethod, horizon_ticks: u32, eps_prog: f64,
+pub struct SweepOpts { pub method: CalMethod, pub horizon_ticks: u32, pub eps_prog: f64 }   // WP-0 amendment: bundled so `sweep` stays within clippy::too_many_arguments
+pub fn sweep(calib: &[Trace], eval: &[Trace], alphas: &[(u32, u32)], dets: &[DetectorSpec], opts: &SweepOpts,
              artefacts: &[CalibrationFile]) -> Vec<SweepPoint>;
 // curve.rs -- closed-loop metrics from receipts ONLY
 pub struct CurveOpts { pub eps_prog: f64, pub latency_control: Option<String>, pub calib_seed_override: Option<(u64, u64)>, pub allow_small: bool,

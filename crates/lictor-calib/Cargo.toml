@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: MIT
+[package]
+name = "lictor-calib"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "lictor-calib: offline lane -- calibration.json, trace loading, split-conformal calibration, envelope fit, metrics, Layer-A sweep, Layer-B curve"
+
+[dependencies]
+lictor-core = { workspace = true, features = ["std"] }
+lictor-detect = { workspace = true, features = ["std"] }
+lictor-fuse = { workspace = true, features = ["std"] }
+lictor-receipt = { workspace = true }
+lictor-canon = { workspace = true }
+lictor-runtime = { workspace = true }
+serde = { workspace = true, features = ["std"] }
+serde_json = { workspace = true }
+toml = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }
