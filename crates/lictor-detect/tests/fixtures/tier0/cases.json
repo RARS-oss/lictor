@@ -1,0 +1,1976 @@
+{
+ "action_cases": [
+  {
+   "a": [
+    266.0,
+    256.0
+   ],
+   "aux": [],
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": null,
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 0,
+    "out": [
+     266.0,
+     256.0
+    ],
+    "peak_speed": 100.0,
+    "trips": []
+   },
+   "name": "action_inside",
+   "note": "10 px step inside the box: no trip; out == a.",
+   "pos": [
+    256.0,
+    256.0
+   ],
+   "prev": [
+    256.0,
+    256.0
+   ]
+  },
+  {
+   "a": [
+    346.0,
+    376.0
+   ],
+   "aux": [],
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": null,
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 3,
+    "out": [
+     315.9999999991269,
+     335.99999999883585
+    ],
+    "peak_speed": 1500.0,
+    "trips": [
+     "speed"
+    ]
+   },
+   "name": "action_speed",
+   "note": "150 px step: SPEED; leashed to step_max along the direction.",
+   "pos": [
+    256.0,
+    256.0
+   ],
+   "prev": [
+    256.0,
+    256.0
+   ]
+  },
+  {
+   "a": [
+    256.0,
+    520.0
+   ],
+   "aux": [],
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": null,
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 2,
+    "out": [
+     256.0,
+     495.0
+    ],
+    "peak_speed": 400.0,
+    "trips": [
+     "workspace"
+    ]
+   },
+   "name": "action_box",
+   "note": "Outside the box on y: WORKSPACE; clamped to box_hi.",
+   "pos": [
+    256.0,
+    480.0
+   ],
+   "prev": [
+    256.0,
+    480.0
+   ]
+  },
+  {
+   "a": [
+    384.0,
+    352.0
+   ],
+   "aux": [],
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": null,
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "brake"
+    ],
+    "v_max": 3000.0
+   },
+   "expect": {
+    "clamped_dims": 3,
+    "out": [
+     375.99999999825377,
+     345.9999999986903
+    ],
+    "peak_speed": 1275.617497528158,
+    "trips": [
+     "reach"
+    ]
+   },
+   "name": "action_reach",
+   "note": "160 px from p_t with a large v_max: REACH only; pulled onto the reach ball.",
+   "pos": [
+    256.0,
+    256.0
+   ],
+   "prev": [
+    300.0,
+    256.0
+   ]
+  },
+  {
+   "a": [
+    316.0,
+    256.0
+   ],
+   "aux": [
+    300.0,
+    256.0,
+    0.1,
+    0.2
+   ],
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": {
+     "aux_center": [
+      0,
+      1
+     ],
+     "radius": 80.0,
+     "v_max": 400.0
+    },
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "contact",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 1,
+    "out": [
+     295.9999999994179,
+     256.0
+    ],
+    "peak_speed": 600.0,
+    "trips": [
+     "contact"
+    ]
+   },
+   "name": "action_contact",
+   "note": "contact armed, block 44 px away, 60 px step > 40: CONTACT; leashed to 40 px.",
+   "pos": [
+    256.0,
+    256.0
+   ],
+   "prev": [
+    256.0,
+    256.0
+   ]
+  },
+  {
+   "a": [
+    406.0,
+    256.0
+   ],
+   "aux": [],
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "off",
+    "contact": null,
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 0,
+    "out": [
+     406.0,
+     256.0
+    ],
+    "peak_speed": 1500.0,
+    "trips": [
+     "speed"
+    ]
+   },
+   "name": "action_off_passthrough",
+   "note": "clamp_mode = off: SPEED trips, out == a.",
+   "pos": [
+    256.0,
+    256.0
+   ],
+   "prev": [
+    256.0,
+    256.0
+   ]
+  },
+  {
+   "a": [
+    406.0,
+    256.0
+   ],
+   "aux": [],
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": null,
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "reach",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 0,
+    "out": [
+     406.0,
+     256.0
+    ],
+    "peak_speed": 1500.0,
+    "trips": []
+   },
+   "name": "action_disabled_speed",
+   "note": "speed disabled: a 150 px step neither trips nor clamps.",
+   "pos": [
+    256.0,
+    256.0
+   ],
+   "prev": [
+    256.0,
+    256.0
+   ]
+  },
+  {
+   "a": [
+    560.0,
+    560.0
+   ],
+   "aux": [],
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": null,
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 3,
+    "out": [
+     495.0,
+     495.0
+    ],
+    "peak_speed": 1272.7922061357856,
+    "trips": [
+     "workspace",
+     "speed"
+    ]
+   },
+   "name": "action_box_and_speed",
+   "note": "Both outside the box and too fast (127 px, under reach_max): WORKSPACE | SPEED; clamp then leash.",
+   "pos": [
+    470.0,
+    470.0
+   ],
+   "prev": [
+    470.0,
+    470.0
+   ]
+  }
+ ],
+ "chunk_cases": [
+  {
+   "aux": [],
+   "chunk": {
+    "data": [
+     266.0,
+     256.0,
+     276.0,
+     256.0,
+     286.0,
+     256.0,
+     296.0,
+     256.0,
+     306.0,
+     256.0,
+     316.0,
+     256.0,
+     326.0,
+     256.0,
+     336.0,
+     256.0,
+     346.0,
+     256.0,
+     356.0,
+     256.0,
+     366.0,
+     256.0,
+     376.0,
+     256.0,
+     386.0,
+     256.0,
+     396.0,
+     256.0,
+     406.0,
+     256.0
+    ],
+    "dim": 2,
+    "exec_steps": 8,
+    "horizon": 15,
+    "seq": 0,
+    "t_emit": 0
+   },
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": null,
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 0,
+    "out": [
+     266.0,
+     256.0,
+     276.0,
+     256.0,
+     286.0,
+     256.0,
+     296.0,
+     256.0,
+     306.0,
+     256.0,
+     316.0,
+     256.0,
+     326.0,
+     256.0,
+     336.0,
+     256.0,
+     346.0,
+     256.0,
+     356.0,
+     256.0,
+     366.0,
+     256.0,
+     376.0,
+     256.0,
+     386.0,
+     256.0,
+     396.0,
+     256.0,
+     406.0,
+     256.0
+    ],
+    "peak_speed": 100.0,
+    "trips": []
+   },
+   "name": "inside_box_smooth",
+   "note": "10 px steps from the current position: no trip, nothing clamped, out == chunk, peak_speed = 100 px/s.",
+   "pos": [
+    256.0,
+    256.0
+   ]
+  },
+  {
+   "aux": [],
+   "chunk": {
+    "data": [
+     490.0,
+     256.0,
+     500.0,
+     256.0,
+     490.0,
+     256.0,
+     480.0,
+     256.0,
+     470.0,
+     256.0,
+     460.0,
+     256.0,
+     450.0,
+     256.0,
+     440.0,
+     256.0,
+     430.0,
+     256.0,
+     420.0,
+     256.0,
+     410.0,
+     256.0,
+     400.0,
+     256.0,
+     390.0,
+     256.0,
+     380.0,
+     256.0,
+     370.0,
+     256.0
+    ],
+    "dim": 2,
+    "exec_steps": 8,
+    "horizon": 15,
+    "seq": 0,
+    "t_emit": 0
+   },
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": null,
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 1,
+    "out": [
+     490.0,
+     256.0,
+     495.0,
+     256.0,
+     490.0,
+     256.0,
+     480.0,
+     256.0,
+     470.0,
+     256.0,
+     460.0,
+     256.0,
+     450.0,
+     256.0,
+     440.0,
+     256.0,
+     430.0,
+     256.0,
+     420.0,
+     256.0,
+     410.0,
+     256.0,
+     400.0,
+     256.0,
+     390.0,
+     256.0,
+     380.0,
+     256.0,
+     370.0,
+     256.0
+    ],
+    "peak_speed": 100.0,
+    "trips": [
+     "workspace"
+    ]
+   },
+   "name": "workspace_one_row",
+   "note": "Row 2 leaves the (margin-adjusted) box on x: WORKSPACE, clamped_dims bit 0, that row is clamped to box_hi; the steps stay within the leash.",
+   "pos": [
+    480.0,
+    256.0
+   ]
+  },
+  {
+   "aux": [],
+   "chunk": {
+    "data": [
+     266.0,
+     256.0,
+     276.0,
+     256.0,
+     426.0,
+     256.0,
+     436.0,
+     256.0,
+     446.0,
+     256.0,
+     456.0,
+     256.0,
+     466.0,
+     256.0,
+     476.0,
+     256.0,
+     486.0,
+     256.0,
+     496.0,
+     256.0,
+     506.0,
+     256.0,
+     516.0,
+     256.0,
+     526.0,
+     256.0,
+     536.0,
+     256.0,
+     546.0,
+     256.0
+    ],
+    "dim": 2,
+    "exec_steps": 8,
+    "horizon": 15,
+    "seq": 0,
+    "t_emit": 0
+   },
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": null,
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 1,
+    "out": [
+     266.0,
+     256.0,
+     276.0,
+     256.0,
+     375.9999999985448,
+     256.0,
+     436.0,
+     256.0,
+     446.0,
+     256.0,
+     456.0,
+     256.0,
+     466.0,
+     256.0,
+     476.0,
+     256.0,
+     486.0,
+     256.0,
+     495.0,
+     256.0,
+     495.0,
+     256.0,
+     495.0,
+     256.0,
+     495.0,
+     256.0,
+     495.0,
+     256.0,
+     495.0,
+     256.0
+    ],
+    "peak_speed": 1500.0,
+    "trips": [
+     "workspace",
+     "speed"
+    ]
+   },
+   "name": "speed_1p5x_mid_chunk",
+   "note": "One 150 px step (1.5 x step_max) in row 2: SPEED only; the leash shortens that step to step_max along its direction and later rows follow from the shortened point.",
+   "pos": [
+    256.0,
+    256.0
+   ]
+  },
+  {
+   "aux": [],
+   "chunk": {
+    "data": [
+     352.0,
+     328.0,
+     358.0,
+     336.0,
+     364.0,
+     344.0,
+     370.0,
+     352.0,
+     376.0,
+     360.0,
+     382.0,
+     368.0,
+     388.0,
+     376.0,
+     394.0,
+     384.0,
+     400.0,
+     392.0,
+     406.0,
+     400.0,
+     412.0,
+     408.0,
+     418.0,
+     416.0,
+     424.0,
+     424.0,
+     430.0,
+     432.0,
+     436.0,
+     440.0
+    ],
+    "dim": 2,
+    "exec_steps": 8,
+    "horizon": 15,
+    "seq": 0,
+    "t_emit": 0
+   },
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": null,
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 3,
+    "out": [
+     335.99999999883585,
+     315.9999999991269,
+     358.0,
+     336.0,
+     364.0,
+     344.0,
+     370.0,
+     352.0,
+     376.0,
+     360.0,
+     382.0,
+     368.0,
+     388.0,
+     376.0,
+     394.0,
+     384.0,
+     400.0,
+     392.0,
+     406.0,
+     400.0,
+     412.0,
+     408.0,
+     418.0,
+     416.0,
+     424.0,
+     424.0,
+     430.0,
+     432.0,
+     436.0,
+     440.0
+    ],
+    "peak_speed": 1200.0,
+    "trips": [
+     "speed"
+    ]
+   },
+   "name": "speed_first_row",
+   "note": "a_0 is 120 px from p_t (q_{-1} = p_t): SPEED on the first row, leashed toward p_t; reach (120 <= 150) does not trip.",
+   "pos": [
+    256.0,
+    256.0
+   ]
+  },
+  {
+   "aux": [],
+   "chunk": {
+    "data": [
+     390.0,
+     256.0,
+     380.0,
+     256.0,
+     370.0,
+     256.0,
+     290.0,
+     256.0,
+     210.0,
+     256.0,
+     200.0,
+     256.0,
+     190.0,
+     256.0,
+     180.0,
+     256.0,
+     170.0,
+     256.0,
+     160.0,
+     256.0,
+     150.0,
+     256.0,
+     140.0,
+     256.0,
+     130.0,
+     256.0,
+     120.0,
+     256.0,
+     110.0,
+     256.0
+    ],
+    "dim": 2,
+    "exec_steps": 8,
+    "horizon": 15,
+    "seq": 0,
+    "t_emit": 0
+   },
+   "config": {
+    "a_max": 5000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": null,
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 0,
+    "out": [
+     390.0,
+     256.0,
+     380.0,
+     256.0,
+     370.0,
+     256.0,
+     290.0,
+     256.0,
+     210.0,
+     256.0,
+     200.0,
+     256.0,
+     190.0,
+     256.0,
+     180.0,
+     256.0,
+     170.0,
+     256.0,
+     160.0,
+     256.0,
+     150.0,
+     256.0,
+     140.0,
+     256.0,
+     130.0,
+     256.0,
+     120.0,
+     256.0,
+     110.0,
+     256.0
+    ],
+    "peak_speed": 800.0,
+    "trips": [
+     "accel"
+    ]
+   },
+   "name": "accel_only",
+   "note": "a_max lowered to 5000: the 10 -> 80 px step change is 7000 px/s^2: ACCEL trips although the projection changes nothing (a soft trip whose clamp is a no-op still counts).",
+   "pos": [
+    400.0,
+    256.0
+   ]
+  },
+  {
+   "aux": [],
+   "chunk": {
+    "data": [
+     390.0,
+     256.0,
+     380.0,
+     256.0,
+     370.0,
+     256.0,
+     300.0,
+     256.0,
+     230.0,
+     256.0,
+     220.0,
+     256.0,
+     210.0,
+     256.0,
+     200.0,
+     256.0,
+     190.0,
+     256.0,
+     180.0,
+     256.0,
+     170.0,
+     256.0,
+     160.0,
+     256.0,
+     150.0,
+     256.0,
+     140.0,
+     256.0,
+     130.0,
+     256.0
+    ],
+    "dim": 2,
+    "exec_steps": 8,
+    "horizon": 15,
+    "seq": 0,
+    "t_emit": 0
+   },
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": null,
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 50000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 0,
+    "out": [
+     390.0,
+     256.0,
+     380.0,
+     256.0,
+     370.0,
+     256.0,
+     300.0,
+     256.0,
+     230.0,
+     256.0,
+     220.0,
+     256.0,
+     210.0,
+     256.0,
+     200.0,
+     256.0,
+     190.0,
+     256.0,
+     180.0,
+     256.0,
+     170.0,
+     256.0,
+     160.0,
+     256.0,
+     150.0,
+     256.0,
+     140.0,
+     256.0,
+     130.0,
+     256.0
+    ],
+    "peak_speed": 700.0,
+    "trips": [
+     "jerk"
+    ]
+   },
+   "name": "jerk_only",
+   "note": "j_max lowered to 50000: the third difference at the step change is 60 px / dt^3 = 60000 px/s^3: JERK trips; accel 6000 and speed 700 stay under their limits.",
+   "pos": [
+    400.0,
+    256.0
+   ]
+  },
+  {
+   "aux": [],
+   "chunk": {
+    "data": [
+     384.0,
+     352.0,
+     388.0,
+     355.0,
+     392.0,
+     358.0,
+     396.0,
+     361.0,
+     400.0,
+     364.0,
+     404.0,
+     367.0,
+     408.0,
+     370.0,
+     412.0,
+     373.0,
+     416.0,
+     376.0,
+     420.0,
+     379.0,
+     424.0,
+     382.0,
+     428.0,
+     385.0,
+     432.0,
+     388.0,
+     436.0,
+     391.0,
+     440.0,
+     394.0
+    ],
+    "dim": 2,
+    "exec_steps": 8,
+    "horizon": 15,
+    "seq": 0,
+    "t_emit": 0
+   },
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": null,
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "brake"
+    ],
+    "v_max": 3000.0
+   },
+   "expect": {
+    "clamped_dims": 3,
+    "out": [
+     375.99999999825377,
+     345.9999999986903,
+     388.0,
+     355.0,
+     392.0,
+     358.0,
+     396.0,
+     361.0,
+     400.0,
+     364.0,
+     404.0,
+     367.0,
+     408.0,
+     370.0,
+     412.0,
+     373.0,
+     416.0,
+     376.0,
+     420.0,
+     379.0,
+     424.0,
+     382.0,
+     428.0,
+     385.0,
+     432.0,
+     388.0,
+     436.0,
+     391.0,
+     440.0,
+     394.0
+    ],
+    "peak_speed": 1600.0,
+    "trips": [
+     "reach"
+    ]
+   },
+   "name": "reach_only",
+   "note": "v_max raised so a 160 px first step is legal for SPEED, but ||a_0 - p_t|| = 160 > 150: REACH; a_0 is pulled toward p_t along the ray, later rows are unchanged.",
+   "pos": [
+    256.0,
+    256.0
+   ]
+  },
+  {
+   "aux": [],
+   "chunk": {
+    "data": [
+     406.0,
+     256.0,
+     396.0,
+     256.0,
+     386.0,
+     256.0,
+     376.0,
+     256.0,
+     366.0,
+     256.0,
+     356.0,
+     256.0,
+     346.0,
+     256.0,
+     336.0,
+     256.0,
+     326.0,
+     256.0,
+     316.0,
+     256.0,
+     306.0,
+     256.0,
+     296.0,
+     256.0,
+     286.0,
+     256.0,
+     276.0,
+     256.0,
+     266.0,
+     256.0
+    ],
+    "dim": 2,
+    "exec_steps": 8,
+    "horizon": 15,
+    "seq": 0,
+    "t_emit": 0
+   },
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": null,
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "accel",
+     "jerk",
+     "reach",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 0,
+    "out": [
+     406.0,
+     256.0,
+     396.0,
+     256.0,
+     386.0,
+     256.0,
+     376.0,
+     256.0,
+     366.0,
+     256.0,
+     356.0,
+     256.0,
+     346.0,
+     256.0,
+     336.0,
+     256.0,
+     326.0,
+     256.0,
+     316.0,
+     256.0,
+     306.0,
+     256.0,
+     296.0,
+     256.0,
+     286.0,
+     256.0,
+     276.0,
+     256.0,
+     266.0,
+     256.0
+    ],
+    "peak_speed": 1500.0,
+    "trips": []
+   },
+   "name": "disabled_speed_no_trip",
+   "note": "The same 1.5 x step with speed removed from tier0_enabled: no trip and no clamp (a disabled check neither trips nor clamps).",
+   "pos": [
+    256.0,
+    256.0
+   ]
+  },
+  {
+   "aux": [],
+   "chunk": {
+    "data": [
+     406.0,
+     256.0,
+     396.0,
+     256.0,
+     386.0,
+     256.0,
+     376.0,
+     256.0,
+     366.0,
+     256.0,
+     356.0,
+     256.0,
+     346.0,
+     256.0,
+     336.0,
+     256.0,
+     326.0,
+     256.0,
+     316.0,
+     256.0,
+     306.0,
+     256.0,
+     296.0,
+     256.0,
+     286.0,
+     256.0,
+     276.0,
+     256.0,
+     266.0,
+     256.0
+    ],
+    "dim": 2,
+    "exec_steps": 8,
+    "horizon": 15,
+    "seq": 0,
+    "t_emit": 0
+   },
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "off",
+    "contact": null,
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 0,
+    "out": [
+     406.0,
+     256.0,
+     396.0,
+     256.0,
+     386.0,
+     256.0,
+     376.0,
+     256.0,
+     366.0,
+     256.0,
+     356.0,
+     256.0,
+     346.0,
+     256.0,
+     336.0,
+     256.0,
+     326.0,
+     256.0,
+     316.0,
+     256.0,
+     306.0,
+     256.0,
+     296.0,
+     256.0,
+     286.0,
+     256.0,
+     276.0,
+     256.0,
+     266.0,
+     256.0
+    ],
+    "peak_speed": 1500.0,
+    "trips": [
+     "speed"
+    ]
+   },
+   "name": "clamp_off_passthrough",
+   "note": "clamp_mode = off: SPEED trips but nothing is projected (out == chunk, clamped_dims = 0).",
+   "pos": [
+    256.0,
+    256.0
+   ]
+  },
+  {
+   "aux": [
+    300.0,
+    256.0,
+    0.1,
+    0.2
+   ],
+   "chunk": {
+    "data": [
+     306.0,
+     256.0,
+     356.0,
+     256.0,
+     406.0,
+     256.0,
+     456.0,
+     256.0
+    ],
+    "dim": 2,
+    "exec_steps": 8,
+    "horizon": 4,
+    "seq": 0,
+    "t_emit": 0
+   },
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": {
+     "aux_center": [
+      0,
+      1
+     ],
+     "radius": 80.0,
+     "v_max": 400.0
+    },
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "contact",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 1,
+    "out": [
+     295.9999999994179,
+     256.0,
+     335.99999999883585,
+     256.0,
+     375.99999999825377,
+     256.0,
+     415.9999999976717,
+     256.0
+    ],
+    "peak_speed": 500.0,
+    "trips": [
+     "contact"
+    ]
+   },
+   "name": "contact_armed_inside_radius",
+   "note": "contact armed and the block centre 44 px away (<= 80): 50 px steps exceed v_contact * dt = 40 px: CONTACT; the leash is the shorter contact leash; speed (50 < 100) is fine.",
+   "pos": [
+    256.0,
+    256.0
+   ]
+  },
+  {
+   "aux": [
+    300.0,
+    256.0,
+    0.1,
+    0.2
+   ],
+   "chunk": {
+    "data": [
+     306.0,
+     256.0,
+     356.0,
+     256.0,
+     406.0,
+     256.0,
+     456.0,
+     256.0
+    ],
+    "dim": 2,
+    "exec_steps": 8,
+    "horizon": 4,
+    "seq": 0,
+    "t_emit": 0
+   },
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": {
+     "aux_center": [
+      0,
+      1
+     ],
+     "radius": 80.0,
+     "v_max": 400.0
+    },
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 0,
+    "out": [
+     306.0,
+     256.0,
+     356.0,
+     256.0,
+     406.0,
+     256.0,
+     456.0,
+     256.0
+    ],
+    "peak_speed": 500.0,
+    "trips": []
+   },
+   "name": "contact_disarmed",
+   "note": "The same geometry with contact not listed in tier0_enabled: nothing trips, nothing is clamped.",
+   "pos": [
+    256.0,
+    256.0
+   ]
+  },
+  {
+   "aux": [
+    406.0,
+    256.0,
+    0.1,
+    0.2
+   ],
+   "chunk": {
+    "data": [
+     306.0,
+     256.0,
+     356.0,
+     256.0,
+     406.0,
+     256.0,
+     456.0,
+     256.0
+    ],
+    "dim": 2,
+    "exec_steps": 8,
+    "horizon": 4,
+    "seq": 0,
+    "t_emit": 0
+   },
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": {
+     "aux_center": [
+      0,
+      1
+     ],
+     "radius": 80.0,
+     "v_max": 400.0
+    },
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "contact",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 0,
+    "out": [
+     306.0,
+     256.0,
+     356.0,
+     256.0,
+     406.0,
+     256.0,
+     456.0,
+     256.0
+    ],
+    "peak_speed": 500.0,
+    "trips": []
+   },
+   "name": "contact_armed_outside_radius",
+   "note": "contact armed but the block centre is 150 px away (> 80): the reduced speed limit does not apply.",
+   "pos": [
+    256.0,
+    256.0
+   ]
+  },
+  {
+   "aux": [],
+   "chunk": {
+    "data": [
+     560.0,
+     560.0,
+     550.0,
+     550.0,
+     540.0,
+     540.0,
+     530.0,
+     530.0,
+     520.0,
+     520.0,
+     510.0,
+     510.0,
+     500.0,
+     500.0,
+     490.0,
+     490.0,
+     480.0,
+     480.0,
+     470.0,
+     470.0,
+     460.0,
+     460.0,
+     450.0,
+     450.0,
+     440.0,
+     440.0,
+     430.0,
+     430.0,
+     420.0,
+     420.0
+    ],
+    "dim": 2,
+    "exec_steps": 8,
+    "horizon": 15,
+    "seq": 0,
+    "t_emit": 0
+   },
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": null,
+    "dim": 2,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 3,
+    "out": [
+     495.0,
+     495.0,
+     495.0,
+     495.0,
+     495.0,
+     495.0,
+     495.0,
+     495.0,
+     495.0,
+     495.0,
+     495.0,
+     495.0,
+     495.0,
+     495.0,
+     490.0,
+     490.0,
+     480.0,
+     480.0,
+     470.0,
+     470.0,
+     460.0,
+     460.0,
+     450.0,
+     450.0,
+     440.0,
+     440.0,
+     430.0,
+     430.0,
+     420.0,
+     420.0
+    ],
+    "peak_speed": 1272.7922061357856,
+    "trips": [
+     "workspace",
+     "speed"
+    ]
+   },
+   "name": "workspace_and_speed",
+   "note": "A 127 px diagonal step that also leaves the box: WORKSPACE and SPEED together (reach 127 <= 150); both dims clamped.",
+   "pos": [
+    470.0,
+    470.0
+   ]
+  },
+  {
+   "aux": [],
+   "chunk": {
+    "data": [
+     266.0,
+     256.0,
+     0.0,
+     276.0,
+     256.0,
+     0.2,
+     286.0,
+     256.0,
+     0.4,
+     296.0,
+     256.0,
+     0.6,
+     306.0,
+     256.0,
+     0.8,
+     316.0,
+     256.0,
+     1.0,
+     326.0,
+     256.0,
+     1.2,
+     336.0,
+     256.0,
+     1.4,
+     346.0,
+     256.0,
+     1.6,
+     356.0,
+     256.0,
+     1.8,
+     366.0,
+     256.0,
+     2.0,
+     376.0,
+     256.0,
+     2.2,
+     386.0,
+     256.0,
+     2.4,
+     396.0,
+     256.0,
+     2.6,
+     406.0,
+     256.0,
+     2.8
+    ],
+    "dim": 3,
+    "exec_steps": 8,
+    "horizon": 15,
+    "seq": 0,
+    "t_emit": 0
+   },
+   "config": {
+    "a_max": 20000.0,
+    "box_hi": [
+     495.0,
+     495.0
+    ],
+    "box_lo": [
+     17.0,
+     17.0
+    ],
+    "clamp": "project",
+    "contact": null,
+    "dim": 3,
+    "dt": 0.1,
+    "j_max": 400000.0,
+    "pos_dim": 2,
+    "reach_max": 150.0,
+    "tier0_enabled": [
+     "workspace",
+     "speed",
+     "accel",
+     "jerk",
+     "reach",
+     "brake"
+    ],
+    "v_max": 1000.0
+   },
+   "expect": {
+    "clamped_dims": 0,
+    "out": [
+     266.0,
+     256.0,
+     0.0,
+     276.0,
+     256.0,
+     0.2,
+     286.0,
+     256.0,
+     0.4,
+     296.0,
+     256.0,
+     0.6,
+     306.0,
+     256.0,
+     0.8,
+     316.0,
+     256.0,
+     1.0,
+     326.0,
+     256.0,
+     1.2,
+     336.0,
+     256.0,
+     1.4,
+     346.0,
+     256.0,
+     1.6,
+     356.0,
+     256.0,
+     1.8,
+     366.0,
+     256.0,
+     2.0,
+     376.0,
+     256.0,
+     2.2,
+     386.0,
+     256.0,
+     2.4,
+     396.0,
+     256.0,
+     2.6,
+     406.0,
+     256.0,
+     2.8
+    ],
+    "peak_speed": 100.0199980003999,
+    "trips": []
+   },
+   "name": "wide_action_dim3",
+   "note": "Action dim 3 over a 2-D position: the box applies to the first two coordinates; the third has q_{-1} = a_0 and takes part in the step norm.",
+   "pos": [
+    256.0,
+    256.0
+   ]
+  }
+ ]
+}

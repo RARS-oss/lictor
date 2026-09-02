@@ -1,0 +1,6 @@
+{
+  "_note": "sha256 over RFC 8785 JCS of the float-free JSON of envelopes/pusht.base.toml (serde field names, contact/fit absent -> null, every f64 as {\"f64\": hex}); recomputed independently by /mnt/d/lictor/wp-1/digest.py with tomllib + json.dumps(sort_keys, compact) and cross-checked against SafetyEnvelope::digest_hex / embodiment_digest (lictor_canon).",
+  "embodiment_digest": "e394d7e5a98978634ab506765291f1a979424bbaa728ccce1702a436dacd3741",
+  "envelope_digest": "49a9a3d82df54690b89ec86d3909ec01c2d390cf3276aa865a9c34d9ea92ceb6",
+  "source": "envelopes/pusht.base.toml"
+}

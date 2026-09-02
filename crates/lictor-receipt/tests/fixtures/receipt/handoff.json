@@ -1,0 +1,44 @@
+{
+  "ack": null,
+  "arm_id": "t01-a05-d0-oracle",
+  "calibration_digest": "3b73724ee741fffff103231c16cf5c32ccbe1b28eb3eb8ce86cf7ecfdf76dd1c",
+  "chain_at": "ee9acccf46db33237f53e4089c4b324332e15b12aadf49940eed86a9c80b1d5a",
+  "digest": "d1c3eb1d0fc54292eb94ca4e4f93f4d5285100a4b2e2c37f7e7efa89d7fd0e14",
+  "envelope_digest": "0e9755fa9d978c1eedf4c59d3588055d03376b0e69d3cbb5ecf4046bc819dc9d",
+  "episode_index": 7,
+  "fired": 64,
+  "outcome": "unacked",
+  "reason": "escalate_hold_timeout",
+  "reason_text": "Held 30 ticks without a clean re-arm window; a human must decide.",
+  "reasons": [
+    "tier1_cp",
+    "rearm_budget"
+  ],
+  "resolved_tick": null,
+  "run_id": "2026-09-01T09-14Z-pilot",
+  "schema": "lictor-handoff/v1",
+  "seq": 0,
+  "tick": 97,
+  "top_z": [
+    [
+      "stall",
+      {
+        "f64": "4010a3d70a3d70a4"
+      }
+    ],
+    [
+      "path_ineff",
+      {
+        "f64": "400a666666666666"
+      }
+    ],
+    [
+      "tce",
+      {
+        "f64": "3ff8000000000000"
+      }
+    ]
+  ],
+  "trips": 33792,
+  "window_hits": 4
+}

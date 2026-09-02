@@ -120,3 +120,43 @@ pub struct SafetyVerdict {
     /// Observe mode: the would-be action_src was != Policy
     pub violation_reached_env: bool,
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use alloc::vec::Vec;
+
+    #[test]
+    fn names_and_from_name_agree_bit_for_bit() {
+        for (i, n) in TripMask::NAMES.iter().enumerate() {
+            assert_eq!(TripMask::from_name(n), Some(1u32 << i));
+            let listed: Vec<&str> = TripMask::names(1u32 << i).collect();
+            assert_eq!(listed, [*n]);
+        }
+        assert_eq!(TripMask::from_name("nope"), None);
+        assert_eq!(TripMask::from_name(""), None);
+        assert_eq!(TripMask::names(TripMask::NONE).count(), 0);
+        let both: Vec<&str> = TripMask::names(TripMask::BRAKE | TripMask::WORKSPACE).collect();
+        assert_eq!(both, ["workspace", "brake"], "bit order, not argument order");
+        assert_eq!(TripMask::names(u32::MAX).count(), 16, "bits above 15 have no name");
+    }
+
+    #[test]
+    fn soft_and_hard_partition_tier0() {
+        assert_eq!(TripMask::TIER0_SOFT & TripMask::TIER0_HARD, 0);
+        assert_eq!(TripMask::TIER0_SOFT | TripMask::TIER0_HARD, (1u32 << 10) - 1);
+        assert_eq!(TripMask::TIER0_HARD & TripMask::BRAKE, TripMask::BRAKE);
+        assert_eq!(TripMask::REARM_BUDGET, 1 << 15);
+    }
+
+    #[test]
+    fn status_is_a_severity_lattice() {
+        assert!(Status::Nominal < Status::Watching);
+        assert!(Status::Watching < Status::Clamped);
+        assert!(Status::Clamped < Status::Braking);
+        assert!(Status::Braking < Status::Held);
+        assert!(Status::Held < Status::Escalated);
+        assert!(Status::Escalated < Status::Fault);
+        assert!(Status::Fault < Status::Terminated);
+    }
+}

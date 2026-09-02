@@ -1,0 +1,1888 @@
+{
+ "_note": [
+  "Drives lictor_fuse::fsm::next one row at a time (docs/ARCHITECTURE.md sec 6 table, rows 1-23 plus 17b, plus the",
+  "two implicit stay rows and the Idle guard documented in fsm.rs). Config = envelopes/pusht.base.toml compiled",
+  "in Enforce mode (k=3 n=5 clear_ticks=5 clamp_streak_to_brake=3 max_clamps=60 stop_confirm=2 brake_timeout=30",
+  "rearm=auto rearm_hold=10 max_rearms=2 escalate_after_hold=30 handoff_timeout=200), optionally edited by `cfg`",
+  "(clamp_mode, rearm, mode). `rt` overrides counters of a freshly reset FuseRt whose pos is [300, 600]; the hold",
+  "latch therefore clamps to [300, 495]. `expect.rt` lists the counters that must hold after the call, `expect.hold`",
+  "the latched setpoint, `expect.extra_trips` the bits the FSM raised itself. The test also checks that rt.state",
+  "equals `to`, that every row name appears at least once, and that no case is silently unmatched."
+ ],
+ "cases": [
+  {
+   "expect": {
+    "extra_trips": [],
+    "hold": [
+     300.0,
+     495.0
+    ],
+    "reason": "fault_non_finite",
+    "to": "fault"
+   },
+   "from": "armed",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [
+     "nonfinite"
+    ],
+    "warn": false
+   },
+   "name": "r1 armed nonfinite",
+   "row": "1"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "hold": [
+     300.0,
+     495.0
+    ],
+    "reason": "fault_schema",
+    "to": "fault"
+   },
+   "from": "held",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [
+     "schema",
+     "workspace"
+    ],
+    "warn": false
+   },
+   "name": "r1 held schema",
+   "row": "1"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "hold": [
+     300.0,
+     495.0
+    ],
+    "reason": "fault_watchdog",
+    "to": "fault"
+   },
+   "from": "braking",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [
+     "watchdog"
+    ],
+    "warn": false
+   },
+   "name": "r1 braking watchdog",
+   "row": "1"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "hold": [
+     300.0,
+     495.0
+    ],
+    "reason": "fault_non_finite",
+    "to": "fault"
+   },
+   "from": "terminated",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [
+     "nonfinite"
+    ],
+    "warn": false
+   },
+   "name": "r1 terminated nonfinite still faults",
+   "row": "1"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "hold": [
+     0.0,
+     0.0
+    ],
+    "reason": "fault_schema",
+    "to": "fault"
+   },
+   "from": "fault",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [
+     "schema"
+    ],
+    "warn": false
+   },
+   "name": "r1 fault again does not relatch hold",
+   "row": "1"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "hold": [
+     300.0,
+     495.0
+    ],
+    "reason": "fault_non_finite",
+    "to": "fault"
+   },
+   "from": "watching",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [
+     "schema",
+     "nonfinite",
+     "watchdog"
+    ],
+    "warn": false
+   },
+   "name": "r1 nonfinite outranks schema in the reason",
+   "row": "1"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "hold": [
+     0.0,
+     0.0
+    ],
+    "reason": "held_standstill",
+    "to": "terminated"
+   },
+   "from": "terminated",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r2 terminated stays",
+   "row": "2"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "held_standstill",
+    "rt": {
+     "last_nonce0": 0
+    },
+    "to": "terminated"
+   },
+   "from": "terminated",
+   "input": {
+    "ack": {
+     "decision": "resume",
+     "handoff_seq": 0,
+     "nonce": 1,
+     "slot": 0
+    },
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r2 terminated ignores an ack",
+   "row": "2"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "held_standstill",
+    "to": "fault"
+   },
+   "from": "fault",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r3 fault stays",
+   "row": "3"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "held_standstill",
+    "rt": {
+     "last_nonce0": 0,
+     "rearms": 0
+    },
+    "to": "fault"
+   },
+   "from": "fault",
+   "input": {
+    "ack": {
+     "decision": "resume",
+     "handoff_seq": 0,
+     "nonce": 1,
+     "slot": 0
+    },
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r3 fault ignores a resume ack",
+   "row": "3"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "held_standstill",
+    "to": "fault"
+   },
+   "from": "fault",
+   "input": {
+    "ack": null,
+    "chunk_boundary": true,
+    "chunk_ok": true,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r3 fault ignores a clean chunk",
+   "row": "3",
+   "rt": {
+    "held_clean": 50
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [
+     "operator_abort"
+    ],
+    "reason": "terminated_abort",
+    "rt": {
+     "handoff_pending": false,
+     "last_nonce0": 3
+    },
+    "to": "terminated"
+   },
+   "from": "escalated",
+   "input": {
+    "ack": {
+     "decision": "abort",
+     "handoff_seq": 0,
+     "nonce": 3,
+     "slot": 0
+    },
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r4 escalated ack abort",
+   "row": "4",
+   "rt": {
+    "handoff_pending": true,
+    "handoff_seq": 0
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "terminated_retune",
+    "rt": {
+     "handoff_pending": false,
+     "last_nonce0": 1
+    },
+    "to": "terminated"
+   },
+   "from": "escalated",
+   "input": {
+    "ack": {
+     "decision": "retune",
+     "handoff_seq": 2,
+     "nonce": 1,
+     "slot": 0
+    },
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r5 escalated ack retune",
+   "row": "5",
+   "rt": {
+    "handoff_pending": true,
+    "handoff_seq": 2
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "rearmed_ack",
+    "rt": {
+     "clamp_streak": 0,
+     "clean_run": 0,
+     "escalated_ticks": 0,
+     "handoff_pending": false,
+     "held_ticks": 0,
+     "last_nonce0": 7,
+     "rearms": 2,
+     "window_bits": 0
+    },
+    "to": "armed"
+   },
+   "from": "escalated",
+   "input": {
+    "ack": {
+     "decision": "resume",
+     "handoff_seq": 1,
+     "nonce": 7,
+     "slot": 0
+    },
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r6 escalated ack resume",
+   "row": "6",
+   "rt": {
+    "clamp_streak": 2,
+    "clean_run": 9,
+    "escalated_ticks": 12,
+    "handoff_pending": true,
+    "handoff_seq": 1,
+    "held_ticks": 31,
+    "rearms": 1,
+    "window_bits": 5
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "rearmed_ack",
+    "rt": {
+     "last_nonce0": 9,
+     "last_nonce1": 2
+    },
+    "to": "armed"
+   },
+   "from": "escalated",
+   "input": {
+    "ack": {
+     "decision": "resume",
+     "handoff_seq": 0,
+     "nonce": 2,
+     "slot": 1
+    },
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r6 ack from operator slot 1 uses its own nonce",
+   "row": "6",
+   "rt": {
+    "last_nonce0": 9
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "held_standstill",
+    "rt": {
+     "escalated_ticks": 4,
+     "last_nonce0": 0,
+     "rearms": 0
+    },
+    "to": "escalated"
+   },
+   "from": "escalated",
+   "input": {
+    "ack": {
+     "decision": "resume",
+     "handoff_seq": 3,
+     "nonce": 1,
+     "slot": 0
+    },
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r8 escalated ack with wrong handoff_seq ignored",
+   "row": "8",
+   "rt": {
+    "escalated_ticks": 3,
+    "handoff_seq": 1
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "held_standstill",
+    "rt": {
+     "escalated_ticks": 1,
+     "last_nonce0": 5
+    },
+    "to": "escalated"
+   },
+   "from": "escalated",
+   "input": {
+    "ack": {
+     "decision": "resume",
+     "handoff_seq": 0,
+     "nonce": 5,
+     "slot": 0
+    },
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r8 escalated ack with replayed nonce ignored",
+   "row": "8",
+   "rt": {
+    "last_nonce0": 5
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "held_standstill",
+    "rt": {
+     "escalated_ticks": 1
+    },
+    "to": "escalated"
+   },
+   "from": "escalated",
+   "input": {
+    "ack": {
+     "decision": "abort",
+     "handoff_seq": 0,
+     "nonce": 1,
+     "slot": 9
+    },
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r8 escalated ack from an out-of-range slot ignored",
+   "row": "8"
+  },
+  {
+   "expect": {
+    "extra_trips": [
+     "handoff_timeout"
+    ],
+    "reason": "terminated_timeout",
+    "rt": {
+     "handoff_pending": false
+    },
+    "to": "terminated"
+   },
+   "from": "escalated",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r7 escalated handoff timeout",
+   "row": "7",
+   "rt": {
+    "escalated_ticks": 200,
+    "handoff_pending": true
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "held_standstill",
+    "rt": {
+     "escalated_ticks": 200
+    },
+    "to": "escalated"
+   },
+   "from": "escalated",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r8 escalated waits one tick short of the timeout",
+   "row": "8",
+   "rt": {
+    "escalated_ticks": 199
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "held_standstill",
+    "rt": {
+     "clean_run": 0,
+     "escalated_ticks": 1
+    },
+    "to": "escalated"
+   },
+   "from": "escalated",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": true,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [
+     "workspace",
+     "brake"
+    ],
+    "warn": false
+   },
+   "name": "r8 escalated ignores trips and predictive",
+   "row": "8"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "rearmed_ack",
+    "rt": {
+     "held_ticks": 0,
+     "last_nonce0": 1,
+     "rearms": 1,
+     "window_bits": 0
+    },
+    "to": "armed"
+   },
+   "from": "held",
+   "input": {
+    "ack": {
+     "decision": "resume",
+     "handoff_seq": 0,
+     "nonce": 1,
+     "slot": 0
+    },
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r9 held ack resume",
+   "row": "9",
+   "rt": {
+    "held_clean": 2,
+    "held_ticks": 4,
+    "window_bits": 1
+   }
+  },
+  {
+   "cfg": {
+    "rearm": "ack_only"
+   },
+   "expect": {
+    "extra_trips": [],
+    "reason": "rearmed_ack",
+    "to": "armed"
+   },
+   "from": "held",
+   "input": {
+    "ack": {
+     "decision": "resume",
+     "handoff_seq": 0,
+     "nonce": 1,
+     "slot": 0
+    },
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r9 held ack resume even under ack_only",
+   "row": "9"
+  },
+  {
+   "expect": {
+    "extra_trips": [
+     "operator_abort"
+    ],
+    "reason": "terminated_abort",
+    "rt": {
+     "last_nonce0": 1
+    },
+    "to": "terminated"
+   },
+   "from": "held",
+   "input": {
+    "ack": {
+     "decision": "abort",
+     "handoff_seq": 0,
+     "nonce": 1,
+     "slot": 0
+    },
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r10 held ack abort",
+   "row": "10"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "held_standstill",
+    "rt": {
+     "held_ticks": 1,
+     "last_nonce0": 0
+    },
+    "to": "held"
+   },
+   "from": "held",
+   "input": {
+    "ack": {
+     "decision": "retune",
+     "handoff_seq": 0,
+     "nonce": 1,
+     "slot": 0
+    },
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r13 held ack retune is not a row",
+   "row": "13"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "rearmed_auto",
+    "rt": {
+     "rearms": 1,
+     "window_bits": 0
+    },
+    "to": "armed"
+   },
+   "from": "held",
+   "input": {
+    "ack": null,
+    "chunk_boundary": true,
+    "chunk_ok": true,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r11 held auto rearm",
+   "row": "11",
+   "rt": {
+    "held_clean": 10,
+    "held_ticks": 12,
+    "window_bits": 3
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "held_standstill",
+    "rt": {
+     "held_clean": 10,
+     "held_ticks": 1,
+     "rearms": 0
+    },
+    "to": "held"
+   },
+   "from": "held",
+   "input": {
+    "ack": null,
+    "chunk_boundary": true,
+    "chunk_ok": true,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r13 held auto rearm needs rearm_hold clean ticks",
+   "row": "13",
+   "rt": {
+    "held_clean": 9
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "held_standstill",
+    "rt": {
+     "held_clean": 11,
+     "rearms": 0
+    },
+    "to": "held"
+   },
+   "from": "held",
+   "input": {
+    "ack": null,
+    "chunk_boundary": true,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r13 held auto rearm needs chunk_ok",
+   "row": "13",
+   "rt": {
+    "held_clean": 10
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "held_standstill",
+    "rt": {
+     "held_ticks": 1,
+     "rearms": 2
+    },
+    "to": "held"
+   },
+   "from": "held",
+   "input": {
+    "ack": null,
+    "chunk_boundary": true,
+    "chunk_ok": true,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r13 held auto rearm needs rearm budget",
+   "row": "13",
+   "rt": {
+    "held_clean": 10,
+    "rearms": 2
+   }
+  },
+  {
+   "cfg": {
+    "rearm": "ack_only"
+   },
+   "expect": {
+    "extra_trips": [],
+    "reason": "held_standstill",
+    "rt": {
+     "rearms": 0
+    },
+    "to": "held"
+   },
+   "from": "held",
+   "input": {
+    "ack": null,
+    "chunk_boundary": true,
+    "chunk_ok": true,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r13 held never auto rearms under ack_only",
+   "row": "13",
+   "rt": {
+    "held_clean": 10
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "escalate_hold_timeout",
+    "rt": {
+     "escalated_ticks": 0,
+     "handoff_pending": true,
+     "handoff_seq": 1
+    },
+    "to": "escalated"
+   },
+   "from": "held",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r12 held escalates on hold timeout",
+   "row": "12",
+   "rt": {
+    "handoff_seq": 0,
+    "held_ticks": 30
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "escalate_tier1_persistent",
+    "rt": {
+     "handoff_seq": 1
+    },
+    "to": "escalated"
+   },
+   "from": "held",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": true,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r12 held escalates tier1 persistent",
+   "row": "12",
+   "rt": {
+    "held_ticks": 30
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [
+     "rearm_budget"
+    ],
+    "reason": "escalate_rearm_budget",
+    "rt": {
+     "handoff_pending": true,
+     "handoff_seq": 1
+    },
+    "to": "escalated"
+   },
+   "from": "held",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r12 held escalates rearm budget",
+   "row": "12",
+   "rt": {
+    "held_ticks": 30,
+    "rearms": 2
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [
+     "rearm_budget"
+    ],
+    "reason": "escalate_rearm_budget",
+    "rt": {
+     "rearms": 2
+    },
+    "to": "escalated"
+   },
+   "from": "held",
+   "input": {
+    "ack": null,
+    "chunk_boundary": true,
+    "chunk_ok": true,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r12 rearm budget exhausted beats a clean chunk",
+   "row": "12",
+   "rt": {
+    "held_clean": 10,
+    "held_ticks": 30,
+    "rearms": 2
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "held_standstill",
+    "rt": {
+     "held_clean": 4,
+     "held_ticks": 4
+    },
+    "to": "held"
+   },
+   "from": "held",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r13 held clean tick counts",
+   "row": "13",
+   "rt": {
+    "held_clean": 3,
+    "held_ticks": 3
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "held_standstill",
+    "rt": {
+     "clean_run": 0,
+     "held_clean": 0,
+     "held_ticks": 4
+    },
+    "to": "held"
+   },
+   "from": "held",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": true
+   },
+   "name": "r13 held warn resets held_clean",
+   "row": "13",
+   "rt": {
+    "held_clean": 3,
+    "held_ticks": 3
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "held_standstill",
+    "rt": {
+     "handoff_seq": 0,
+     "held_ticks": 30
+    },
+    "to": "held"
+   },
+   "from": "held",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r13 held one tick short of escalation",
+   "row": "13",
+   "rt": {
+    "held_ticks": 29
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [
+     "brake_timeout"
+    ],
+    "hold": [
+     300.0,
+     495.0
+    ],
+    "reason": "fault_brake_timeout",
+    "to": "fault"
+   },
+   "from": "braking",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": true,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r14 braking timeout",
+   "row": "14",
+   "rt": {
+    "brake_ticks": 30,
+    "stopped_ticks": 1
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "hold": [
+     300.0,
+     495.0
+    ],
+    "reason": "held_standstill",
+    "rt": {
+     "held_clean": 0,
+     "held_ticks": 0
+    },
+    "to": "held"
+   },
+   "from": "braking",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": true,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r15 braking stop confirmed",
+   "row": "15",
+   "rt": {
+    "brake_ticks": 4,
+    "held_clean": 3,
+    "held_ticks": 7,
+    "stopped_ticks": 1
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "hold": [
+     0.0,
+     0.0
+    ],
+    "reason": "stopping",
+    "rt": {
+     "brake_ticks": 1,
+     "stopped_ticks": 1
+    },
+    "to": "braking"
+   },
+   "from": "braking",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": true,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r16 braking first stopped tick",
+   "row": "16",
+   "rt": {
+    "brake_ticks": 0,
+    "stopped_ticks": 0
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "stopping",
+    "rt": {
+     "brake_ticks": 6,
+     "stopped_ticks": 0
+    },
+    "to": "braking"
+   },
+   "from": "braking",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r16 braking moving resets stopped_ticks",
+   "row": "16",
+   "rt": {
+    "brake_ticks": 5,
+    "stopped_ticks": 1
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "stopping",
+    "rt": {
+     "brake_ticks": 1,
+     "clean_run": 0
+    },
+    "to": "braking"
+   },
+   "from": "braking",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": true,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [
+     "workspace"
+    ],
+    "warn": false
+   },
+   "name": "r16 braking ignores soft trips and predictive",
+   "row": "16"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "stopping",
+    "rt": {
+     "brake_ticks": 30
+    },
+    "to": "braking"
+   },
+   "from": "braking",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r16 braking one tick short of the timeout",
+   "row": "16",
+   "rt": {
+    "brake_ticks": 29
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "brake_infeasible",
+    "rt": {
+     "brake_ticks": 0,
+     "stopped_ticks": 0
+    },
+    "to": "braking"
+   },
+   "from": "armed",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [
+     "brake"
+    ],
+    "warn": false
+   },
+   "name": "r17 armed brake infeasible",
+   "row": "17",
+   "rt": {
+    "brake_ticks": 7,
+    "stopped_ticks": 2
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "brake_infeasible",
+    "to": "braking"
+   },
+   "from": "clamped",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [
+     "workspace",
+     "brake"
+    ],
+    "warn": false
+   },
+   "name": "r17 clamped brake beats the soft bit",
+   "row": "17"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "brake_infeasible",
+    "to": "braking"
+   },
+   "from": "watching",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": true,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [
+     "brake"
+    ],
+    "warn": false
+   },
+   "name": "r17 watching brake beats predictive",
+   "row": "17"
+  },
+  {
+   "cfg": {
+    "clamp_mode": "off"
+   },
+   "expect": {
+    "extra_trips": [],
+    "reason": "clamp_speed",
+    "rt": {
+     "brake_ticks": 0,
+     "clamps": 0
+    },
+    "to": "braking"
+   },
+   "from": "armed",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": false,
+    "stopped": false,
+    "trips": [
+     "speed",
+     "reach"
+    ],
+    "warn": false
+   },
+   "name": "r17b armed soft trip not clampable",
+   "row": "17b"
+  },
+  {
+   "cfg": {
+    "clamp_mode": "off"
+   },
+   "expect": {
+    "extra_trips": [],
+    "reason": "clamp_workspace",
+    "to": "braking"
+   },
+   "from": "clamped",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": false,
+    "stopped": false,
+    "trips": [
+     "workspace"
+    ],
+    "warn": false
+   },
+   "name": "r17b clamped workspace not clampable",
+   "row": "17b"
+  },
+  {
+   "expect": {
+    "extra_trips": [
+     "tier1_cp"
+    ],
+    "reason": "brake_tier1_cp",
+    "to": "braking"
+   },
+   "from": "watching",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": true,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r18 watching predictive",
+   "row": "18"
+  },
+  {
+   "expect": {
+    "extra_trips": [
+     "tier1_cp"
+    ],
+    "reason": "brake_tier1_cp",
+    "to": "braking"
+   },
+   "from": "armed",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": true,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r18 armed predictive beats clamp budget",
+   "row": "18",
+   "rt": {
+    "clamp_streak": 3
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [
+     "clamp_budget"
+    ],
+    "reason": "brake_clamp_budget",
+    "to": "braking"
+   },
+   "from": "clamped",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r19 clamped streak budget",
+   "row": "19",
+   "rt": {
+    "clamp_streak": 3
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [
+     "clamp_budget"
+    ],
+    "reason": "brake_clamp_budget",
+    "rt": {
+     "clamps": 61
+    },
+    "to": "braking"
+   },
+   "from": "armed",
+   "input": {
+    "ack": null,
+    "chunk_boundary": true,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [
+     "workspace"
+    ],
+    "warn": false
+   },
+   "name": "r19 armed episode clamp budget",
+   "row": "19",
+   "rt": {
+    "clamps": 61
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "clamp_speed",
+    "rt": {
+     "clamp_streak": 1,
+     "clamps": 1,
+     "clean_run": 0
+    },
+    "to": "clamped"
+   },
+   "from": "armed",
+   "input": {
+    "ack": null,
+    "chunk_boundary": true,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [
+     "speed"
+    ],
+    "warn": false
+   },
+   "name": "r20 armed soft trip at a boundary",
+   "row": "20"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "clamp_workspace",
+    "rt": {
+     "clamp_streak": 2,
+     "clamps": 61
+    },
+    "to": "clamped"
+   },
+   "from": "watching",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [
+     "workspace",
+     "accel"
+    ],
+    "warn": false
+   },
+   "name": "r20 watching soft trip intra chunk",
+   "row": "20",
+   "rt": {
+    "clamp_streak": 2,
+    "clamps": 60
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "clamp_jerk",
+    "rt": {
+     "clamp_streak": 3,
+     "clamps": 4
+    },
+    "to": "clamped"
+   },
+   "from": "clamped",
+   "input": {
+    "ack": null,
+    "chunk_boundary": true,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [
+     "jerk"
+    ],
+    "warn": false
+   },
+   "name": "r20 clamped again at the next boundary",
+   "row": "20",
+   "rt": {
+    "clamp_streak": 2,
+    "clamps": 3
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "ok",
+    "rt": {
+     "clamp_streak": 0,
+     "clean_run": 5,
+     "window_bits": 0
+    },
+    "to": "armed"
+   },
+   "from": "watching",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r21 watching clears down",
+   "row": "21",
+   "rt": {
+    "clamp_streak": 2,
+    "clean_run": 4,
+    "window_bits": 3
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "ok",
+    "rt": {
+     "clamp_streak": 0,
+     "clean_run": 8
+    },
+    "to": "armed"
+   },
+   "from": "clamped",
+   "input": {
+    "ack": null,
+    "chunk_boundary": true,
+    "chunk_ok": true,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r21 clamped clears down",
+   "row": "21",
+   "rt": {
+    "clamp_streak": 1,
+    "clean_run": 7
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "watch_band",
+    "rt": {
+     "clean_run": 0
+    },
+    "to": "watching"
+   },
+   "from": "armed",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": true
+   },
+   "name": "r22 armed warn",
+   "row": "22"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "watch_band",
+    "to": "watching"
+   },
+   "from": "armed",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r22 armed window hit below K",
+   "row": "22",
+   "rt": {
+    "window_bits": 1
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "watch_band",
+    "rt": {
+     "clean_run": 2
+    },
+    "to": "watching"
+   },
+   "from": "clamped",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r22 clamped clean tick with window hits",
+   "row": "22",
+   "rt": {
+    "clean_run": 1,
+    "window_bits": 6
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "ok",
+    "rt": {
+     "clean_run": 4
+    },
+    "to": "armed"
+   },
+   "from": "armed",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r23 armed clean",
+   "row": "23",
+   "rt": {
+    "clean_run": 3
+   }
+  },
+  {
+   "cfg": {
+    "mode": "observe"
+   },
+   "expect": {
+    "extra_trips": [],
+    "reason": "observe_only",
+    "to": "armed"
+   },
+   "from": "armed",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r23 armed clean observe mode",
+   "row": "23"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "ok",
+    "rt": {
+     "last_nonce0": 0,
+     "rearms": 0
+    },
+    "to": "armed"
+   },
+   "from": "armed",
+   "input": {
+    "ack": {
+     "decision": "resume",
+     "handoff_seq": 0,
+     "nonce": 1,
+     "slot": 0
+    },
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r23 armed ignores an ack",
+   "row": "23"
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "ok",
+    "to": "armed"
+   },
+   "from": "armed",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "r23 armed with the clamp budget untouched",
+   "row": "23",
+   "rt": {
+    "clamp_streak": 2,
+    "clamps": 60
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "watch_band",
+    "rt": {
+     "clean_run": 3
+    },
+    "to": "watching"
+   },
+   "from": "watching",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "stay watching while clearing down",
+   "row": "stay",
+   "rt": {
+    "clean_run": 2
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "reason": "ok",
+    "rt": {
+     "clamps": 2,
+     "clean_run": 1
+    },
+    "to": "clamped"
+   },
+   "from": "clamped",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "stay clamped while clearing down",
+   "row": "stay",
+   "rt": {
+    "clamps": 2,
+    "clean_run": 0
+   }
+  },
+  {
+   "expect": {
+    "extra_trips": [],
+    "hold": [
+     300.0,
+     495.0
+    ],
+    "reason": "fault_internal",
+    "to": "fault"
+   },
+   "from": "idle",
+   "input": {
+    "ack": null,
+    "chunk_boundary": false,
+    "chunk_ok": false,
+    "predictive": false,
+    "soft_clampable": true,
+    "stopped": false,
+    "trips": [],
+    "warn": false
+   },
+   "name": "idle fails closed",
+   "row": "idle"
+  }
+ ]
+}

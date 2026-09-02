@@ -1,1 +1,2082 @@
-[]
+[
+  {
+    "a_max": 20000.0,
+    "action_kind": "ee_position",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        266.0,
+        256.0
+      ],
+      [
+        276.0,
+        256.0
+      ],
+      [
+        286.0,
+        256.0
+      ],
+      [
+        296.0,
+        256.0
+      ],
+      [
+        306.0,
+        256.0
+      ],
+      [
+        316.0,
+        256.0
+      ],
+      [
+        326.0,
+        256.0
+      ],
+      [
+        336.0,
+        256.0
+      ],
+      [
+        346.0,
+        256.0
+      ],
+      [
+        356.0,
+        256.0
+      ],
+      [
+        366.0,
+        256.0
+      ],
+      [
+        376.0,
+        256.0
+      ],
+      [
+        386.0,
+        256.0
+      ],
+      [
+        396.0,
+        256.0
+      ],
+      [
+        406.0,
+        256.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": true,
+      "margin": 170.80292534345193,
+      "stop_dist": 65.49296436085831
+    },
+    "from": 0,
+    "horizon": 15,
+    "j_max": 400000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "pd_second_order",
+    "margin": 2.0,
+    "name": "pd_straight_inside",
+    "note": "10 px/step in +x from the centre; nothing near a wall; from=0, v0=0",
+    "p0": [
+      256.0,
+      256.0
+    ],
+    "react_ticks": 1,
+    "substeps": 10,
+    "v0": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "a_max": 20000.0,
+    "action_kind": "ee_position",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        385.0,
+        256.0
+      ],
+      [
+        390.0,
+        256.0
+      ],
+      [
+        395.0,
+        256.0
+      ],
+      [
+        400.0,
+        256.0
+      ],
+      [
+        405.0,
+        256.0
+      ],
+      [
+        410.0,
+        256.0
+      ],
+      [
+        415.0,
+        256.0
+      ],
+      [
+        420.0,
+        256.0
+      ],
+      [
+        425.0,
+        256.0
+      ],
+      [
+        430.0,
+        256.0
+      ],
+      [
+        435.0,
+        256.0
+      ],
+      [
+        440.0,
+        256.0
+      ],
+      [
+        445.0,
+        256.0
+      ],
+      [
+        450.0,
+        256.0
+      ],
+      [
+        455.0,
+        256.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": true,
+      "margin": 80.90146267172582,
+      "stop_dist": 32.74648218042927
+    },
+    "from": 0,
+    "horizon": 15,
+    "j_max": 400000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "pd_second_order",
+    "margin": 2.0,
+    "name": "pd_wall_slow",
+    "note": "5 px/step toward the +x wall from x=380; feasible with wide margin",
+    "p0": [
+      380.0,
+      256.0
+    ],
+    "react_ticks": 1,
+    "substeps": 10,
+    "v0": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "a_max": 20000.0,
+    "action_kind": "ee_position",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        390.0,
+        256.0
+      ],
+      [
+        400.0,
+        256.0
+      ],
+      [
+        410.0,
+        256.0
+      ],
+      [
+        420.0,
+        256.0
+      ],
+      [
+        430.0,
+        256.0
+      ],
+      [
+        440.0,
+        256.0
+      ],
+      [
+        450.0,
+        256.0
+      ],
+      [
+        460.0,
+        256.0
+      ],
+      [
+        470.0,
+        256.0
+      ],
+      [
+        480.0,
+        256.0
+      ],
+      [
+        490.0,
+        256.0
+      ],
+      [
+        500.0,
+        256.0
+      ],
+      [
+        510.0,
+        256.0
+      ],
+      [
+        520.0,
+        256.0
+      ],
+      [
+        530.0,
+        256.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": true,
+      "margin": 46.80292534345193,
+      "stop_dist": 65.49296436085831
+    },
+    "from": 0,
+    "horizon": 15,
+    "j_max": 400000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "pd_second_order",
+    "margin": 2.0,
+    "name": "pd_wall_medium",
+    "note": "10 px/step toward the +x wall from x=380; feasible",
+    "p0": [
+      380.0,
+      256.0
+    ],
+    "react_ticks": 1,
+    "substeps": 10,
+    "v0": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "a_max": 20000.0,
+    "action_kind": "ee_position",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        400.0,
+        256.0
+      ],
+      [
+        420.0,
+        256.0
+      ],
+      [
+        440.0,
+        256.0
+      ],
+      [
+        460.0,
+        256.0
+      ],
+      [
+        480.0,
+        256.0
+      ],
+      [
+        500.0,
+        256.0
+      ],
+      [
+        520.0,
+        256.0
+      ],
+      [
+        540.0,
+        256.0
+      ],
+      [
+        560.0,
+        256.0
+      ],
+      [
+        580.0,
+        256.0
+      ],
+      [
+        600.0,
+        256.0
+      ],
+      [
+        620.0,
+        256.0
+      ],
+      [
+        640.0,
+        256.0
+      ],
+      [
+        660.0,
+        256.0
+      ],
+      [
+        680.0,
+        256.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": false,
+      "margin": -18.82987810831196,
+      "stop_dist": 115.1262317917749
+    },
+    "from": 0,
+    "horizon": 15,
+    "j_max": 400000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "pd_second_order",
+    "margin": 2.0,
+    "name": "pd_wall_fast",
+    "note": "20 px/step toward the +x wall from x=380: the prefix ends past x=495 -> infeasible",
+    "p0": [
+      380.0,
+      256.0
+    ],
+    "react_ticks": 1,
+    "substeps": 10,
+    "v0": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "a_max": 20000.0,
+    "action_kind": "ee_position",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        400.0,
+        256.0
+      ],
+      [
+        420.0,
+        256.0
+      ],
+      [
+        440.0,
+        256.0
+      ],
+      [
+        460.0,
+        256.0
+      ],
+      [
+        480.0,
+        256.0
+      ],
+      [
+        500.0,
+        256.0
+      ],
+      [
+        520.0,
+        256.0
+      ],
+      [
+        540.0,
+        256.0
+      ],
+      [
+        560.0,
+        256.0
+      ],
+      [
+        580.0,
+        256.0
+      ],
+      [
+        600.0,
+        256.0
+      ],
+      [
+        620.0,
+        256.0
+      ],
+      [
+        640.0,
+        256.0
+      ],
+      [
+        660.0,
+        256.0
+      ],
+      [
+        680.0,
+        256.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": false,
+      "margin": -17.47954075060113,
+      "stop_dist": 115.1216193633324
+    },
+    "from": 3,
+    "horizon": 15,
+    "j_max": 400000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "pd_second_order",
+    "margin": 2.0,
+    "name": "pd_wall_fast_from3",
+    "note": "same chunk, from=3: rows 3..7 only (async drop d=3), fewer iterations",
+    "p0": [
+      380.0,
+      256.0
+    ],
+    "react_ticks": 1,
+    "substeps": 10,
+    "v0": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "a_max": 20000.0,
+    "action_kind": "ee_position",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        400.0,
+        256.0
+      ],
+      [
+        420.0,
+        256.0
+      ],
+      [
+        440.0,
+        256.0
+      ],
+      [
+        460.0,
+        256.0
+      ],
+      [
+        480.0,
+        256.0
+      ],
+      [
+        500.0,
+        256.0
+      ],
+      [
+        520.0,
+        256.0
+      ],
+      [
+        540.0,
+        256.0
+      ],
+      [
+        560.0,
+        256.0
+      ],
+      [
+        580.0,
+        256.0
+      ],
+      [
+        600.0,
+        256.0
+      ],
+      [
+        620.0,
+        256.0
+      ],
+      [
+        640.0,
+        256.0
+      ],
+      [
+        660.0,
+        256.0
+      ],
+      [
+        680.0,
+        256.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": true,
+      "margin": 49.735021668680474,
+      "stop_dist": 47.48102870022336
+    },
+    "from": 7,
+    "horizon": 15,
+    "j_max": 400000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "pd_second_order",
+    "margin": 2.0,
+    "name": "pd_wall_fast_from7",
+    "note": "same chunk, from=7: one committed row then the brake tail",
+    "p0": [
+      380.0,
+      256.0
+    ],
+    "react_ticks": 1,
+    "substeps": 10,
+    "v0": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "a_max": 20000.0,
+    "action_kind": "ee_position",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        266.0,
+        256.0
+      ],
+      [
+        276.0,
+        256.0
+      ],
+      [
+        286.0,
+        256.0
+      ],
+      [
+        296.0,
+        256.0
+      ],
+      [
+        306.0,
+        256.0
+      ],
+      [
+        316.0,
+        256.0
+      ],
+      [
+        326.0,
+        256.0
+      ],
+      [
+        336.0,
+        256.0
+      ],
+      [
+        346.0,
+        256.0
+      ],
+      [
+        356.0,
+        256.0
+      ],
+      [
+        366.0,
+        256.0
+      ],
+      [
+        376.0,
+        256.0
+      ],
+      [
+        386.0,
+        256.0
+      ],
+      [
+        396.0,
+        256.0
+      ],
+      [
+        406.0,
+        256.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": true,
+      "margin": 170.7364274329001,
+      "stop_dist": 65.57975002691522
+    },
+    "from": 0,
+    "horizon": 15,
+    "j_max": 400000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "pd_second_order",
+    "margin": 2.0,
+    "name": "pd_v0_nonzero",
+    "note": "straight chunk with the simulator velocity v0 = (300, -150) px/s",
+    "p0": [
+      256.0,
+      256.0
+    ],
+    "react_ticks": 1,
+    "substeps": 10,
+    "v0": [
+      300.0,
+      -150.0
+    ]
+  },
+  {
+    "a_max": 20000.0,
+    "action_kind": "ee_position",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        400.0,
+        256.0
+      ],
+      [
+        420.0,
+        256.0
+      ],
+      [
+        440.0,
+        256.0
+      ],
+      [
+        460.0,
+        256.0
+      ],
+      [
+        480.0,
+        256.0
+      ],
+      [
+        500.0,
+        256.0
+      ],
+      [
+        520.0,
+        256.0
+      ],
+      [
+        540.0,
+        256.0
+      ],
+      [
+        560.0,
+        256.0
+      ],
+      [
+        580.0,
+        256.0
+      ],
+      [
+        600.0,
+        256.0
+      ],
+      [
+        620.0,
+        256.0
+      ],
+      [
+        640.0,
+        256.0
+      ],
+      [
+        660.0,
+        256.0
+      ],
+      [
+        680.0,
+        256.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": true,
+      "margin": 3.001065685395872,
+      "stop_dist": 0.11595886768736818
+    },
+    "from": 8,
+    "horizon": 15,
+    "j_max": 400000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "pd_second_order",
+    "margin": 2.0,
+    "name": "pd_tail_only",
+    "note": "from=8 >= commit_steps: only the 80-substep brake tail from (480, 256) at 400 px/s",
+    "p0": [
+      480.0,
+      256.0
+    ],
+    "react_ticks": 1,
+    "substeps": 10,
+    "v0": [
+      400.0,
+      0.0
+    ]
+  },
+  {
+    "a_max": 20000.0,
+    "action_kind": "ee_position",
+    "box_hi": [
+      512.0,
+      300.0
+    ],
+    "box_lo": [
+      0.0,
+      100.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        256.0,
+        118.0
+      ],
+      [
+        256.0,
+        106.0
+      ],
+      [
+        256.0,
+        94.0
+      ],
+      [
+        256.0,
+        82.0
+      ],
+      [
+        256.0,
+        70.0
+      ],
+      [
+        256.0,
+        58.0
+      ],
+      [
+        256.0,
+        46.0
+      ],
+      [
+        256.0,
+        34.0
+      ],
+      [
+        256.0,
+        22.0
+      ],
+      [
+        256.0,
+        10.0
+      ],
+      [
+        256.0,
+        -2.0
+      ],
+      [
+        256.0,
+        -14.0
+      ],
+      [
+        256.0,
+        -26.0
+      ],
+      [
+        256.0,
+        -38.0
+      ],
+      [
+        256.0,
+        -50.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": false,
+      "margin": -53.89812994870464,
+      "stop_dist": 25.27859110932563
+    },
+    "from": 0,
+    "horizon": 15,
+    "j_max": 400000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "pd_second_order",
+    "margin": 5.0,
+    "name": "pd_asym_box",
+    "note": "asymmetric box y in [100,300], margin 5, moving -y toward the low wall",
+    "p0": [
+      256.0,
+      130.0
+    ],
+    "react_ticks": 1,
+    "substeps": 10,
+    "v0": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "a_max": 20000.0,
+    "action_kind": "ee_position",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        415.0,
+        256.0
+      ],
+      [
+        430.0,
+        256.0
+      ],
+      [
+        445.0,
+        256.0
+      ],
+      [
+        460.0,
+        256.0
+      ],
+      [
+        475.0,
+        256.0
+      ],
+      [
+        490.0,
+        256.0
+      ],
+      [
+        505.0,
+        256.0
+      ],
+      [
+        520.0,
+        256.0
+      ],
+      [
+        535.0,
+        256.0
+      ],
+      [
+        550.0,
+        256.0
+      ],
+      [
+        565.0,
+        256.0
+      ],
+      [
+        580.0,
+        256.0
+      ],
+      [
+        595.0,
+        256.0
+      ],
+      [
+        610.0,
+        256.0
+      ],
+      [
+        625.0,
+        256.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.02,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": false,
+      "margin": -6.188983574257975,
+      "stop_dist": 95.06010285571432
+    },
+    "from": 0,
+    "horizon": 15,
+    "j_max": 400000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "pd_second_order",
+    "margin": 2.0,
+    "name": "pd_coarse_substeps",
+    "note": "5 substeps of dt=0.02 (same 0.1 s period); 15 px/step toward +x",
+    "p0": [
+      400.0,
+      256.0
+    ],
+    "react_ticks": 1,
+    "substeps": 5,
+    "v0": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "a_max": 20000.0,
+    "action_kind": "ee_position",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 0,
+    "chunk": [
+      [
+        400.0,
+        256.0
+      ],
+      [
+        420.0,
+        256.0
+      ],
+      [
+        440.0,
+        256.0
+      ],
+      [
+        460.0,
+        256.0
+      ],
+      [
+        480.0,
+        256.0
+      ],
+      [
+        500.0,
+        256.0
+      ],
+      [
+        520.0,
+        256.0
+      ],
+      [
+        540.0,
+        256.0
+      ],
+      [
+        560.0,
+        256.0
+      ],
+      [
+        580.0,
+        256.0
+      ],
+      [
+        600.0,
+        256.0
+      ],
+      [
+        620.0,
+        256.0
+      ],
+      [
+        640.0,
+        256.0
+      ],
+      [
+        660.0,
+        256.0
+      ],
+      [
+        680.0,
+        256.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": false,
+      "margin": -15.933153123653767,
+      "stop_dist": 130.93315312365377
+    },
+    "from": 0,
+    "horizon": 15,
+    "j_max": 400000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "pd_second_order",
+    "margin": 2.0,
+    "name": "pd_no_brake_tail",
+    "note": "brake_steps=0: margin over the committed prefix only",
+    "p0": [
+      380.0,
+      256.0
+    ],
+    "react_ticks": 1,
+    "substeps": 10,
+    "v0": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "a_max": 20000.0,
+    "action_kind": "ee_position",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        460.0,
+        256.0
+      ],
+      [
+        470.0,
+        256.0
+      ],
+      [
+        480.0,
+        256.0
+      ],
+      [
+        490.0,
+        256.0
+      ],
+      [
+        500.0,
+        256.0
+      ],
+      [
+        510.0,
+        256.0
+      ],
+      [
+        520.0,
+        256.0
+      ],
+      [
+        530.0,
+        256.0
+      ],
+      [
+        540.0,
+        256.0
+      ],
+      [
+        550.0,
+        256.0
+      ],
+      [
+        560.0,
+        256.0
+      ],
+      [
+        570.0,
+        256.0
+      ],
+      [
+        580.0,
+        256.0
+      ],
+      [
+        590.0,
+        256.0
+      ],
+      [
+        600.0,
+        256.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": false,
+      "margin": -30.01953125,
+      "stop_dist": 84.98046875
+    },
+    "from": 0,
+    "horizon": 15,
+    "j_max": 400000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "first_order_decay",
+    "margin": 2.0,
+    "name": "first_order_decay",
+    "note": "closed form d_stop = ||v||/k_v with react_ticks=1; ee_position toward +x",
+    "p0": [
+      450.0,
+      256.0
+    ],
+    "react_ticks": 1,
+    "substeps": 10,
+    "v0": [
+      100.0,
+      0.0
+    ]
+  },
+  {
+    "a_max": 2000.0,
+    "action_kind": "ee_position",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        460.0,
+        256.0
+      ],
+      [
+        470.0,
+        256.0
+      ],
+      [
+        480.0,
+        256.0
+      ],
+      [
+        490.0,
+        256.0
+      ],
+      [
+        500.0,
+        256.0
+      ],
+      [
+        510.0,
+        256.0
+      ],
+      [
+        520.0,
+        256.0
+      ],
+      [
+        530.0,
+        256.0
+      ],
+      [
+        540.0,
+        256.0
+      ],
+      [
+        550.0,
+        256.0
+      ],
+      [
+        560.0,
+        256.0
+      ],
+      [
+        570.0,
+        256.0
+      ],
+      [
+        580.0,
+        256.0
+      ],
+      [
+        590.0,
+        256.0
+      ],
+      [
+        600.0,
+        256.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": false,
+      "margin": -27.519569396972656,
+      "stop_dist": 82.48050689697266
+    },
+    "from": 0,
+    "horizon": 15,
+    "j_max": 400000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "bounded_accel",
+    "margin": 2.0,
+    "name": "bounded_accel",
+    "note": "closed form ||v||^2/(2 a_max), a_max=2000; ee_position toward +x",
+    "p0": [
+      450.0,
+      256.0
+    ],
+    "react_ticks": 1,
+    "substeps": 10,
+    "v0": [
+      100.0,
+      0.0
+    ]
+  },
+  {
+    "a_max": 2000.0,
+    "action_kind": "ee_position",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        460.0,
+        256.0
+      ],
+      [
+        470.0,
+        256.0
+      ],
+      [
+        480.0,
+        256.0
+      ],
+      [
+        490.0,
+        256.0
+      ],
+      [
+        500.0,
+        256.0
+      ],
+      [
+        510.0,
+        256.0
+      ],
+      [
+        520.0,
+        256.0
+      ],
+      [
+        530.0,
+        256.0
+      ],
+      [
+        540.0,
+        256.0
+      ],
+      [
+        550.0,
+        256.0
+      ],
+      [
+        560.0,
+        256.0
+      ],
+      [
+        570.0,
+        256.0
+      ],
+      [
+        580.0,
+        256.0
+      ],
+      [
+        590.0,
+        256.0
+      ],
+      [
+        600.0,
+        256.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": false,
+      "margin": -39.970741271972656,
+      "stop_dist": 94.93167877197266
+    },
+    "from": 0,
+    "horizon": 15,
+    "j_max": 40000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "jerk_limited",
+    "margin": 2.0,
+    "name": "jerk_limited",
+    "note": "closed form with the a_max/(2 j_max) term, a_max=2000, j_max=40000, react_ticks=2",
+    "p0": [
+      450.0,
+      256.0
+    ],
+    "react_ticks": 2,
+    "substeps": 10,
+    "v0": [
+      100.0,
+      0.0
+    ]
+  },
+  {
+    "a_max": 500.0,
+    "action_kind": "joint_velocity",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        150.0,
+        0.0
+      ],
+      [
+        150.0,
+        0.0
+      ],
+      [
+        150.0,
+        0.0
+      ],
+      [
+        150.0,
+        0.0
+      ],
+      [
+        150.0,
+        0.0
+      ],
+      [
+        150.0,
+        0.0
+      ],
+      [
+        150.0,
+        0.0
+      ],
+      [
+        150.0,
+        0.0
+      ],
+      [
+        150.0,
+        0.0
+      ],
+      [
+        150.0,
+        0.0
+      ],
+      [
+        150.0,
+        0.0
+      ],
+      [
+        150.0,
+        0.0
+      ],
+      [
+        150.0,
+        0.0
+      ],
+      [
+        150.0,
+        0.0
+      ],
+      [
+        150.0,
+        0.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": false,
+      "margin": -17.5,
+      "stop_dist": 127.5
+    },
+    "from": 2,
+    "horizon": 15,
+    "j_max": 400000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "zero_velocity_hold",
+    "margin": 2.0,
+    "name": "zero_velocity_hold",
+    "note": "joint_velocity rows (150, 0) px/s, a_max=500: BoundedAccel ball, from=2",
+    "p0": [
+      400.0,
+      256.0
+    ],
+    "react_ticks": 1,
+    "substeps": 10,
+    "v0": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "a_max": 1000.0,
+    "action_kind": "ee_delta",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        8.0,
+        0.0
+      ],
+      [
+        8.0,
+        0.0
+      ],
+      [
+        8.0,
+        0.0
+      ],
+      [
+        8.0,
+        0.0
+      ],
+      [
+        8.0,
+        0.0
+      ],
+      [
+        8.0,
+        0.0
+      ],
+      [
+        8.0,
+        0.0
+      ],
+      [
+        8.0,
+        0.0
+      ],
+      [
+        8.0,
+        0.0
+      ],
+      [
+        8.0,
+        0.0
+      ],
+      [
+        8.0,
+        0.0
+      ],
+      [
+        8.0,
+        0.0
+      ],
+      [
+        8.0,
+        0.0
+      ],
+      [
+        8.0,
+        0.0
+      ],
+      [
+        8.0,
+        0.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": false,
+      "margin": -42.2,
+      "stop_dist": 75.2
+    },
+    "from": 0,
+    "horizon": 15,
+    "j_max": 400000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "bounded_accel",
+    "margin": 2.0,
+    "name": "bounded_accel_ee_delta",
+    "note": "ee_delta rows (8, 0) px/step -> 80 px/s, a_max=1000, near the +x wall",
+    "p0": [
+      470.0,
+      256.0
+    ],
+    "react_ticks": 1,
+    "substeps": 10,
+    "v0": [
+      40.0,
+      0.0
+    ]
+  },
+  {
+    "a_max": 20000.0,
+    "action_kind": "ee_position",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        310.0,
+        256.0
+      ],
+      [
+        320.0,
+        256.0
+      ],
+      [
+        330.0,
+        256.0
+      ],
+      [
+        340.0,
+        256.0
+      ],
+      [
+        350.0,
+        256.0
+      ],
+      [
+        360.0,
+        256.0
+      ],
+      [
+        370.0,
+        256.0
+      ],
+      [
+        380.0,
+        256.0
+      ],
+      [
+        390.0,
+        256.0
+      ],
+      [
+        400.0,
+        256.0
+      ],
+      [
+        410.0,
+        256.0
+      ],
+      [
+        420.0,
+        256.0
+      ],
+      [
+        430.0,
+        256.0
+      ],
+      [
+        440.0,
+        256.0
+      ],
+      [
+        450.0,
+        256.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": true,
+      "margin": 119.98046875,
+      "stop_dist": 84.98046875
+    },
+    "from": 0,
+    "horizon": 15,
+    "j_max": 400000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "first_order_decay",
+    "margin": 2.0,
+    "name": "first_order_decay_feasible",
+    "note": "same closed form far from every wall: feasible",
+    "p0": [
+      300.0,
+      256.0
+    ],
+    "react_ticks": 1,
+    "substeps": 10,
+    "v0": [
+      50.0,
+      0.0
+    ]
+  },
+  {
+    "a_max": 2000.0,
+    "action_kind": "ee_position",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        262.0,
+        250.0
+      ],
+      [
+        268.0,
+        244.0
+      ],
+      [
+        274.0,
+        238.0
+      ],
+      [
+        280.0,
+        232.0
+      ],
+      [
+        286.0,
+        226.0
+      ],
+      [
+        292.0,
+        220.0
+      ],
+      [
+        298.0,
+        214.0
+      ],
+      [
+        304.0,
+        208.0
+      ],
+      [
+        310.0,
+        202.0
+      ],
+      [
+        316.0,
+        196.0
+      ],
+      [
+        322.0,
+        190.0
+      ],
+      [
+        328.0,
+        184.0
+      ],
+      [
+        334.0,
+        178.0
+      ],
+      [
+        340.0,
+        172.0
+      ],
+      [
+        346.0,
+        166.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": true,
+      "margin": 192.71502429030923,
+      "stop_dist": 69.66821595972888
+    },
+    "from": 0,
+    "horizon": 15,
+    "j_max": 400000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "bounded_accel",
+    "margin": 2.0,
+    "name": "bounded_accel_feasible",
+    "note": "BoundedAccel from the centre with a diagonal v0: feasible",
+    "p0": [
+      256.0,
+      256.0
+    ],
+    "react_ticks": 1,
+    "substeps": 10,
+    "v0": [
+      80.0,
+      -60.0
+    ]
+  },
+  {
+    "a_max": 2000.0,
+    "action_kind": "ee_position",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        266.0,
+        256.0
+      ],
+      [
+        276.0,
+        256.0
+      ],
+      [
+        286.0,
+        256.0
+      ],
+      [
+        296.0,
+        256.0
+      ],
+      [
+        306.0,
+        256.0
+      ],
+      [
+        316.0,
+        256.0
+      ],
+      [
+        326.0,
+        256.0
+      ],
+      [
+        336.0,
+        256.0
+      ],
+      [
+        346.0,
+        256.0
+      ],
+      [
+        356.0,
+        256.0
+      ],
+      [
+        366.0,
+        256.0
+      ],
+      [
+        376.0,
+        256.0
+      ],
+      [
+        386.0,
+        256.0
+      ],
+      [
+        396.0,
+        256.0
+      ],
+      [
+        406.0,
+        256.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": true,
+      "margin": 173.95113372802734,
+      "stop_dist": 75.00980377197266
+    },
+    "from": 0,
+    "horizon": 15,
+    "j_max": 40000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "jerk_limited",
+    "margin": 2.0,
+    "name": "jerk_limited_feasible",
+    "note": "JerkLimited from the centre, react_ticks=0: feasible",
+    "p0": [
+      256.0,
+      256.0
+    ],
+    "react_ticks": 0,
+    "substeps": 10,
+    "v0": [
+      100.0,
+      0.0
+    ]
+  },
+  {
+    "a_max": 500.0,
+    "action_kind": "joint_velocity",
+    "box_hi": [
+      497.0,
+      497.0
+    ],
+    "box_lo": [
+      15.0,
+      15.0
+    ],
+    "brake_steps": 8,
+    "chunk": [
+      [
+        60.0,
+        30.0
+      ],
+      [
+        60.0,
+        30.0
+      ],
+      [
+        60.0,
+        30.0
+      ],
+      [
+        60.0,
+        30.0
+      ],
+      [
+        60.0,
+        30.0
+      ],
+      [
+        60.0,
+        30.0
+      ],
+      [
+        60.0,
+        30.0
+      ],
+      [
+        60.0,
+        30.0
+      ],
+      [
+        60.0,
+        30.0
+      ],
+      [
+        60.0,
+        30.0
+      ],
+      [
+        60.0,
+        30.0
+      ],
+      [
+        60.0,
+        30.0
+      ],
+      [
+        60.0,
+        30.0
+      ],
+      [
+        60.0,
+        30.0
+      ],
+      [
+        60.0,
+        30.0
+      ]
+    ],
+    "commit_steps": 8,
+    "control_hz_den": 1,
+    "control_hz_num": 10,
+    "dt": 0.01,
+    "exec_steps": 8,
+    "expect": {
+      "feasible": true,
+      "margin": 171.79179606750063,
+      "stop_dist": 64.87383539249433
+    },
+    "from": 0,
+    "horizon": 15,
+    "j_max": 400000.0,
+    "k_p": 100.0,
+    "k_v": 20.0,
+    "kind": "zero_velocity_hold",
+    "margin": 2.0,
+    "name": "zero_velocity_hold_feasible",
+    "note": "joint_velocity rows (60, 30) px/s from (200, 200), a_max=500: feasible",
+    "p0": [
+      200.0,
+      200.0
+    ],
+    "react_ticks": 1,
+    "substeps": 10,
+    "v0": [
+      10.0,
+      0.0
+    ]
+  }
+]

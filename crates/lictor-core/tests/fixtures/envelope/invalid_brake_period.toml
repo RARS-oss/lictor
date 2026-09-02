@@ -1,0 +1,74 @@
+schema = "lictor-envelope/v1"
+envelope_id = "pusht-base-v1"
+# Base values are PLACEHOLDERS: loose enough not to touch the baseline. `lictor envelope fit` writes envelopes/pusht.toml.
+box_lo = [15.0, 15.0]          # agent radius 15 px; env box is [0,512]^2
+box_hi = [497.0, 497.0]
+margin = 2.0
+v_max = 1000.0                 # px/s   (100 px per 0.1 s control step)
+a_max = 20000.0                # px/s^2
+j_max = 400000.0               # px/s^3
+reach_max = 150.0              # px, ||a_0 - p_t||
+clamp_mode = "project"
+tier0_enabled = ["workspace", "speed", "accel", "jerk", "reach", "brake"]   # "contact" is perception-assisted; off by default
+gate = ["tce", "acc", "acm_neg", "njr", "reach", "path_ineff", "stall", "speed_peak"]   # plain max over 8 channels (calibration.json may override)
+operators = []                 # hex64 Ed25519 pubkeys allowed to sign an AckToken. NEVER edited at run time by Python: the oracle arm
+                               # uses envelopes/pusht.oracle.toml, produced by `lictor envelope fit ... --operator <hex>` (same embodiment,
+                               # hence the same embodiment_digest and the same calibration; a different envelope_digest, printed by verify)
+fail_closed = true
+
+[embodiment]
+id = "gym_pusht/PushT-v0"
+units = "px"
+action_kind = "ee_position"
+action_dim = 2
+pos_dim = 2
+horizon = 15                   # n_action_steps = horizon(16) - n_obs_steps(2) + 1 = 15 (see ARCHITECTURE sec 0)
+exec_steps = 8                 # stock n_action_steps -- the executed prefix is identical to published LeRobot
+control_hz_num = 10
+control_hz_den = 1
+provides_vel = true            # gym_pusht info["vel_agent"] every step -> obs.vel; the PD brake rollout starts from the true v0
+horizon_ticks = 300            # == max_episode_steps; the calibration time base (`lictor calibrate` refuses a mismatch)
+norm_center = [256.0, 256.0]
+norm_scale = [256.0, 256.0]
+aux_layout = ["block_x", "block_y", "block_theta", "coverage"]
+ext_names = []
+
+[brake]
+kind = "pd_second_order"       # gym-pusht agent: acc = k_p (a - p) - k_v v ; v += acc dt ; p += v dt ; 10 substeps of dt = 0.01
+k_p = 100.0
+k_v = 20.0
+substeps = 5
+dt = 0.01
+commit_steps = 8
+brake_steps = 8
+react_ticks = 1
+
+[hysteresis]
+k = 3
+n = 5
+warn_margin = 0.5
+clear_ticks = 5
+clamp_streak_to_brake = 3
+max_clamps_per_episode = 60
+stop_confirm_ticks = 2
+v_stop_eps = 5.0
+brake_timeout_ticks = 30
+rearm = "auto"
+rearm_hold = 10
+max_rearms = 2
+escalate_after_hold_ticks = 30
+handoff_timeout_ticks = 200
+watchdog_ticks = 2
+
+# [contact]  (optional, disarmed unless listed in tier0_enabled)
+# radius = 80.0
+# v_max = 400.0
+# aux_center = [0, 1]
+
+# [fit]  (written by `lictor envelope fit`)
+# source_run = "2026-09-01T09-14Z-pilot"
+# quantile = 0.999
+# slack = 1.25
+# n_episodes = 196
+# fitted_utc = "2026-09-01T11:02:00Z"
+# note = "p99.9 of |v|,|a|,|j|,reach over calibration successes x 1.25"

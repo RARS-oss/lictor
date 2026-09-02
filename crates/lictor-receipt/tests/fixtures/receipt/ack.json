@@ -1,0 +1,9 @@
+{
+  "decision": "resume",
+  "handoff_digest": "d1c3eb1d0fc54292eb94ca4e4f93f4d5285100a4b2e2c37f7e7efa89d7fd0e14",
+  "nonce": 7,
+  "note": "oracle resume",
+  "operator": "29acbae141bccaf0b22e1a94d34d0bc7361e526d0bfe12c89794bc9322966dd7",
+  "schema": "lictor-handoff/v1",
+  "sig": "98781fccd6c288ee80703bbecffda711c1105d65ec70d0ecd5d1073d4702112ca14fce3d78c26beef4bb564012829cdcf2508ecd6fa627e7ab636e627a622c0d"
+}

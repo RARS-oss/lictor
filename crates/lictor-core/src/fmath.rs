@@ -76,3 +76,53 @@ pub fn dist(a: &[f64], b: &[f64], n: usize) -> f64 {
 pub fn all_finite(v: &[f64]) -> bool {
     v.iter().all(|x| x.is_finite())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn abs_clears_only_the_sign_bit() {
+        assert_eq!(abs(-3.5), 3.5);
+        assert_eq!(abs(3.5), 3.5);
+        assert_eq!(abs(-0.0).to_bits(), 0.0f64.to_bits());
+        assert_eq!(abs(f64::NEG_INFINITY), f64::INFINITY);
+    }
+
+    #[test]
+    fn min_max_clamp_are_strict_comparisons() {
+        assert_eq!(min(1.0, 2.0), 1.0);
+        assert_eq!(min(2.0, 1.0), 1.0);
+        assert_eq!(max(1.0, 2.0), 2.0);
+        assert_eq!(max(2.0, 1.0), 2.0);
+        // ties return the second argument (a < b is false), so signed zeros are deterministic
+        assert_eq!(min(0.0, -0.0).to_bits(), (-0.0f64).to_bits());
+        assert_eq!(max(-0.0, 0.0).to_bits(), 0.0f64.to_bits());
+        assert_eq!(clamp(5.0, 0.0, 1.0), 1.0);
+        assert_eq!(clamp(-5.0, 0.0, 1.0), 0.0);
+        assert_eq!(clamp(0.5, 0.0, 1.0), 0.5);
+        assert_eq!(min(f64::INFINITY, 3.0), 3.0);
+    }
+
+    #[test]
+    fn norm_and_dist_accumulate_left_to_right() {
+        assert_eq!(sqrt(4.0), 2.0);
+        assert_eq!(norm(&[3.0, 4.0], 2), 5.0);
+        assert_eq!(norm(&[3.0, 4.0, 100.0], 2), 5.0, "only the first n entries count");
+        assert_eq!(norm(&[], 0), 0.0);
+        assert_eq!(dist(&[1.0, 1.0], &[4.0, 5.0], 2), 5.0);
+        // fixed order: (1e16^2 + 1) + (-1e16)^2, not a reordered sum
+        let v = [1e16, 1.0, -1e16];
+        let expected = sqrt(((1e16 * 1e16) + 1.0) + (1e16 * 1e16));
+        assert_eq!(norm(&v, 3).to_bits(), expected.to_bits());
+    }
+
+    #[test]
+    fn all_finite_rejects_nan_and_inf() {
+        assert!(all_finite(&[0.0, -1.5, 1e300]));
+        assert!(all_finite(&[]));
+        assert!(!all_finite(&[0.0, f64::NAN]));
+        assert!(!all_finite(&[f64::INFINITY]));
+        assert!(!all_finite(&[f64::NEG_INFINITY, 1.0]));
+    }
+}

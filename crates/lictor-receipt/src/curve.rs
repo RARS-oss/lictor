@@ -1,10 +1,13 @@
 // SPDX-License-Identifier: MIT
-//! OWNER: WP-4. Stub written by WP-0; replace the bodies, keep the signatures.
 //! The signed curve receipt (`lictor-curve/v1`): per-arm closed-loop metrics recomputed from receipts only.
+//! Same mechanism as an episode receipt: `body_digest = sha256(canon(body))`, one Ed25519 signature over the
+//! same bytes; `verify_curve` reports `ticks_ok` / `counts_ok` / `envelope_digest_ok` as `true` (not applicable).
 
+use lictor_canon::{canon_of, sha256_hex, CANONICAL_ID};
+
+use crate::sign::{sign_bytes, ReceiptError, VerifyReport};
+use crate::CURVE_SCHEMA;
 use lictor_canon::F64Hex;
-
-use crate::sign::{ReceiptError, VerifyReport};
 
 /// A paired difference with its bootstrap CI (10 000 resamples, splitmix64 seed 20260830) and exact McNemar on the same pairs.
 #[derive(Clone, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
@@ -87,6 +90,16 @@ pub struct CurveReceiptBody {
     pub eps_prog: F64Hex,
 }
 
+impl CurveReceiptBody {
+    pub fn canonical(&self) -> Result<Vec<u8>, lictor_canon::CanonError> {
+        canon_of(self)
+    }
+
+    pub fn digest_hex(&self) -> Result<String, lictor_canon::CanonError> {
+        Ok(sha256_hex(&self.canonical()?))
+    }
+}
+
 #[derive(Clone, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct SignedCurve {
     pub body: CurveReceiptBody,
@@ -95,11 +108,25 @@ pub struct SignedCurve {
     pub sig: String,
 }
 
-pub fn sign_curve(_body: CurveReceiptBody, _seed: &[u8; 32]) -> Result<SignedCurve, ReceiptError> {
-    todo!("WP-4")
+pub fn sign_curve(body: CurveReceiptBody, seed: &[u8; 32]) -> Result<SignedCurve, ReceiptError> {
+    let canonical = body.canonical()?;
+    let (pubkey, sig) = sign_bytes(seed, &canonical);
+    Ok(SignedCurve { body_digest: sha256_hex(&canonical), pubkey, sig, body })
 }
 
 /// ticks_ok/counts_ok/envelope_digest_ok = true (n/a)
-pub fn verify_curve(_sc: &SignedCurve, _expect_pubkey: Option<&str>) -> VerifyReport {
-    todo!("WP-4")
+pub fn verify_curve(sc: &SignedCurve, expect_pubkey: Option<&str>) -> VerifyReport {
+    let schema_ok = sc.body.schema == CURVE_SCHEMA && sc.body.canonical == CANONICAL_ID;
+    let mut notes = Vec::new();
+    let mut report = VerifyReport::from_signature_checks(
+        schema_ok,
+        sc.body.canonical(),
+        &sc.body_digest,
+        &sc.pubkey,
+        &sc.sig,
+        expect_pubkey,
+        &mut notes,
+    );
+    report.notes = notes;
+    report
 }

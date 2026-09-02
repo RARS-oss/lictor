@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 372" width="1200" height="372" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif">
+<!-- SPDX-License-Identifier: MIT -->
+<!-- lictor banner: hand-written, plain shapes and text, no external fonts or assets, ASCII only. -->
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#12221f"/><stop offset="1" stop-color="#0d1719"/></linearGradient>
+</defs>
+<rect x="1" y="1" width="1198" height="370" rx="20" fill="url(#bg)" stroke="#24363b" stroke-width="1.5"/>
+<g opacity="0.06" stroke="#2bc4b2" stroke-width="1">
+<line x1="0" y1="93" x2="1200" y2="93"/>
+<line x1="0" y1="186" x2="1200" y2="186"/>
+<line x1="0" y1="279" x2="1200" y2="279"/>
+</g>
+<text x="56" y="66" fill="#2bc4b2" font-size="15" font-weight="600" letter-spacing="4">RUST | DETERMINISTIC SAFETY FUSE | Ed25519-SIGNED, REPLAYABLE RECEIPTS</text>
+<text x="52" y="150" fill="#eaf3f2" font-size="86" font-weight="800" letter-spacing="-2">lictor</text>
+<text x="300" y="150" fill="#9fb4ba" font-size="26" font-weight="600">a safety fuse over learned robot policies</text>
+<text x="56" y="196" fill="#9fb4ba" font-size="20">A learned policy emits an action chunk. <tspan fill="#63e0cf">lictor</tspan> checks it -- limits, braking, a calibrated</text>
+<text x="56" y="223" fill="#9fb4ba" font-size="20">failure score -- in a pure, zero-alloc verdict, and signs a receipt anyone can <tspan fill="#63e0cf">replay</tspan> and verify.</text>
+<rect x="56" y="250" width="380" height="96" rx="8" fill="#16262a" stroke="#7d3b3b" stroke-opacity="0.6"/>
+<text x="70" y="272" fill="#c15b5b" font-size="12" font-weight="600" letter-spacing="2" font-family="monospace">POLICY ALONE</text>
+<text x="70" y="296" fill="#eaf3f2" font-size="13" font-family="monospace">chunk leaves the box -&gt; executed anyway</text>
+<text x="70" y="322" fill="#c15b5b" font-size="13" font-family="monospace">record:   none. a number, not evidence</text>
+<text x="458" y="306" fill="#2bc4b2" font-size="34" font-weight="700">-&gt;</text>
+<rect x="520" y="250" width="624" height="96" rx="8" fill="#16262a" stroke="#2bc4b2" stroke-opacity="0.5"/>
+<text x="534" y="272" fill="#2bc4b2" font-size="12.5" font-family="monospace">$ lictor verify receipt.json --ticks ticks.jsonl</text>
+<text x="534" y="292" fill="#8fd6c9" font-size="12.5" font-family="monospace">  signature ok | body digest ok | verdict chain ok | timing chain ok</text>
+<text x="534" y="312" fill="#eaf3f2" font-size="12.5" font-family="monospace">  intact    YES     FUSE HELD   (0 violations reached the environment)</text>
+<text x="534" y="332" fill="#9fb4ba" font-size="12.5" font-family="monospace">  replays 40/40 byte-identical   timing chain varies (by design)</text>
+</svg>

@@ -1,0 +1,1746 @@
+{
+  "body": {
+    "budget": {
+      "alpha_den": 100,
+      "alpha_num": 5,
+      "delay_steps": 0,
+      "exec_mode": "sync",
+      "gate": [
+        "tce",
+        "acc",
+        "acm_neg",
+        "njr",
+        "reach",
+        "path_ineff",
+        "stall",
+        "speed_peak"
+      ],
+      "kn": [
+        3,
+        5
+      ],
+      "mode": "enforce",
+      "on_escalate": "terminate_fail",
+      "stitch": "drop",
+      "tick_ms": 100,
+      "tier0_armed": [
+        "workspace",
+        "speed",
+        "accel",
+        "jerk",
+        "reach",
+        "brake"
+      ],
+      "tier1_armed": true
+    },
+    "calibration_digest": "3b73724ee741fffff103231c16cf5c32ccbe1b28eb3eb8ce86cf7ecfdf76dd1c",
+    "canonical": "jcs-floatfree/v1",
+    "client": "lictor_client/0.1.0",
+    "counts": {
+      "braking": 4,
+      "chunks_rejected": 0,
+      "chunks_seen": 38,
+      "clamped": 0,
+      "clamps": 0,
+      "escalated": 0,
+      "escalations": 0,
+      "fault": 0,
+      "fired_by_feat": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "first_stop_tick": 181,
+      "first_trip_reason": "brake_tier1_cp",
+      "first_trip_tick": 181,
+      "handoff_tick": null,
+      "held": 3,
+      "holds": 1,
+      "nominal": 281,
+      "rearms": 1,
+      "substituted": 7,
+      "terminal_state": "armed",
+      "terminated": 0,
+      "ticks": 300,
+      "trips_by_bit": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "violations_reached_env": 0,
+      "watching": 12
+    },
+    "created_epoch": 1788327242,
+    "envelope": {
+      "brake": {
+        "dt": {
+          "f64": "3f847ae147ae147b"
+        },
+        "horizon_s": {
+          "f64": "3fe0000000000000"
+        },
+        "k_p": {
+          "f64": "4059000000000000"
+        },
+        "k_v": {
+          "f64": "4034000000000000"
+        },
+        "kind": "pd_rollout"
+      },
+      "embodiment": {
+        "action_dim": 2,
+        "control_hz": 10,
+        "name": "pusht"
+      },
+      "escalation": {
+        "hold_ticks": 30,
+        "on_escalate": "terminate_fail"
+      },
+      "limits": {
+        "accel": {
+          "f64": "40c1940000000000"
+        },
+        "jerk": {
+          "f64": "4105f90000000000"
+        },
+        "reach": {
+          "f64": "4082c00000000000"
+        },
+        "speed": {
+          "f64": "4080e00000000000"
+        }
+      },
+      "operators": [
+        "29acbae141bccaf0b22e1a94d34d0bc7361e526d0bfe12c89794bc9322966dd7"
+      ],
+      "schema": "lictor-envelope/v1",
+      "tier1": {
+        "alpha": {
+          "f64": "3fa999999999999a"
+        },
+        "gate": [
+          "tce",
+          "acc",
+          "acm_neg",
+          "njr",
+          "reach",
+          "path_ineff",
+          "stall",
+          "speed_peak"
+        ],
+        "k": 3,
+        "n": 5
+      },
+      "workspace": {
+        "max": [
+          {
+            "f64": "4080000000000000"
+          },
+          {
+            "f64": "4080000000000000"
+          }
+        ],
+        "min": [
+          {
+            "f64": "0000000000000000"
+          },
+          {
+            "f64": "0000000000000000"
+          }
+        ]
+      }
+    },
+    "envelope_digest": "0e9755fa9d978c1eedf4c59d3588055d03376b0e69d3cbb5ecf4046bc819dc9d",
+    "fault_injection": null,
+    "fuse_notes": [],
+    "fuse_ok": true,
+    "handoffs": [],
+    "inputs": {
+      "envelopes/pusht.toml": "69889bd6e8e70c8d25bfdbc7e52ed9f7d7c169804d223330d419fa4043e9350d",
+      "harness/compat.py": "4952659bd1f820ed58f97e792f7bd71db0b488677c5b2e4ab381027f79b5070f",
+      "harness/executor.py": "9dca85ed8064626733447f7680a6822fce2ed7fc25924ff6e80c9423dfcdac71",
+      "harness/pusht_rollout.py": "ee0517eb229d7d2f721e24ce7615a55079c0ed8f008e21262e58b534a3d2af79",
+      "lictor:bin": "ee1f2e88c1bd2c25015f971132866909f87dc3bbe444bf8161928be922f5a063",
+      "lictor:calibration": "1832371a68268cfd013cb5244639e3d50c99678153ee04d265d739fcda61733b",
+      "lictor:envelope": "93dc35ab1cbd46743e4f5727d80a51063b89ecf395a2551bf4db4e5422ae78c4"
+    },
+    "latency": {
+      "label": "measured under WSL2 virtualisation (Hyper-V utility VM, non-RT host) -- not a real-time environment",
+      "max_ns": 1891,
+      "n": 300,
+      "p50_ns": 1433,
+      "p90_ns": 1803,
+      "p999_ns": 1891,
+      "p99_ns": 1888
+    },
+    "ledger_prev": "65cfaf3fd426fda570a275d237a2f7810204cacccf54aa6aa12ae02ef56d4ae9",
+    "lictor_git": "fixture",
+    "lictor_sha256": "069e46e4e70939d80919339b319c1fd51b74f79a43b7f2a8146e202b55d1ad4e",
+    "lictor_version": "0.1.0",
+    "outcome": {
+      "ended_by": "truncated",
+      "final_coverage": {
+        "f64": "3fe5c28f5c28f5c3"
+      },
+      "max_coverage": {
+        "f64": "3fe6b851eb851eb8"
+      },
+      "max_s": {
+        "f64": "4010a3d70a3d70a4"
+      },
+      "max_z": {
+        "f64a": "AAAAAAAA+D8AAAAAAAD4PwAAAAAAAPg/AAAAAAAA+D8AAAAAAAD4PwAAAAAAAPg/pHA9CtejEEAAAAAAAAD4PwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "shape": [
+          12
+        ]
+      },
+      "reward_sum": {
+        "f64": "4066500000000000"
+      },
+      "steps": 300,
+      "success": false,
+      "terminated": false,
+      "truncated": true
+    },
+    "run": {
+      "arm_id": "t01-a05-d0",
+      "env": {
+        "control_hz": "10",
+        "env_id": "gym_pusht/PushT-v0",
+        "gym_pusht": "0.1.5",
+        "gymnasium": "1.3.0",
+        "max_episode_steps": "300",
+        "obs_type": "pixels_agent_pos",
+        "vel_source": "info.vel_agent"
+      },
+      "episode_index": 7,
+      "host": {
+        "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+        "MKL_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "PYTHONHASHSEED": "0",
+        "lerobot": "0.6.1",
+        "os": "synthetic",
+        "torch": "2.7.1+cu126"
+      },
+      "init_state_digest": "e00d3d5ab5f4b3332c548cb3c8eb1de8ac596cd088513c856562ea4b70393305",
+      "policy": {
+        "device": "cuda",
+        "dtype": "float32",
+        "horizon": "16",
+        "n_action_steps": "15",
+        "n_obs_steps": "2",
+        "normalization_migrated": "true",
+        "repo_id": "lerobot/diffusion_pusht"
+      },
+      "run_id": "2026-09-01T09-14Z-pilot",
+      "seed": 7,
+      "seed_pool": "eval"
+    },
+    "schema": "lictor-receipt/v1",
+    "ticks": [
+      {
+        "action": {
+          "f64a": "AAAAAABsYkDMzMzMzCxtQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA+j8AAAAAAADyPwAAAAAAAOQ/AAAAAAAAwD8AAAAAAAD8PwAAAAAAAPQ/AAAAAAAA6D8AAAAAAADQPwAAAAAAAP4/AAAAAAAA9j8AAAAAAADsPwAAAAAAANg/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "4184b968d3ee7c0967e061b6ce179fbd23fc2deb58c1ba50d352524ef20dcf81",
+        "prev": "49b5ab9d1fafd0997cc80446925fb4b80506cb9909b3544a0cc4c693ab98113a",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff4000000000000"
+        },
+        "seq": 268,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 268,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA8j8AAAAAAADkPwAAAAAAAMA/AAAAAAAA2L8AAAAAAAD0PwAAAAAAAOg/AAAAAAAA0D8AAAAAAADQvwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAAB8YkDMzMzMzCRtQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA/D8AAAAAAAD2PwAAAAAAAPA/AAAAAAAA5D8AAAAAAADQPwAAAAAAAABAAAAAAAAA+j8AAAAAAAD0PwAAAAAAAOw/AAAAAAAA4D8AAAAAAADAPwAAAAAAAP4/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "5b4098db490cf68689097e53c22735b0ea5e6f51eacf8bfefb73ff99a198b1ea",
+        "prev": "4184b968d3ee7c0967e061b6ce179fbd23fc2deb58c1ba50d352524ef20dcf81",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff8000000000000"
+        },
+        "seq": 269,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 269,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA9D8AAAAAAADsPwAAAAAAAOA/AAAAAAAAwD8AAAAAAADQvwAAAAAAAPg/AAAAAAAA8j8AAAAAAADoPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAACMYkDMzMzMzBxtQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA/j8AAAAAAAD6PwAAAAAAAPY/AAAAAAAA8j8AAAAAAADsPwAAAAAAAOQ/AAAAAAAA2D8AAAAAAADAPwAAAAAAAABAAAAAAAAA/D8AAAAAAAD4PwAAAAAAAPQ/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "7698697f2ee3a955d5e85885ca50735882231037d924fe8de63549b8eee06f84",
+        "prev": "5b4098db490cf68689097e53c22735b0ea5e6f51eacf8bfefb73ff99a198b1ea",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff6000000000000"
+        },
+        "seq": 270,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 270,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA9j8AAAAAAADyPwAAAAAAAOw/AAAAAAAA5D8AAAAAAADYPwAAAAAAAMA/AAAAAAAAwL8AAAAAAADYvwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAACcYkDMzMzMzBRtQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAAAEAAAAAAAAD+PwAAAAAAAPw/AAAAAAAA+j8AAAAAAAD4PwAAAAAAAPY/AAAAAAAA9D8AAAAAAADyPwAAAAAAAPA/AAAAAAAA7D8AAAAAAADoPwAAAAAAAOQ/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "c0ddd13abf9f7cb82dc086c4d9a714d8f338b8a102c8100822cc7e6d148082cd",
+        "prev": "7698697f2ee3a955d5e85885ca50735882231037d924fe8de63549b8eee06f84",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff8000000000000"
+        },
+        "seq": 271,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 271,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA+D8AAAAAAAD2PwAAAAAAAPQ/AAAAAAAA8j8AAAAAAADwPwAAAAAAAOw/AAAAAAAA6D8AAAAAAADkPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAACsYkDMzMzMzAxtQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "6fb5667e35cce6443785fe5c6769d3c98dfab7aeb49e113d0ecab1a0bc3bb520",
+        "prev": "c0ddd13abf9f7cb82dc086c4d9a714d8f338b8a102c8100822cc7e6d148082cd",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "bfe0000000000000"
+        },
+        "seq": 272,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 272,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA4L8AAAAAAADgvwAAAAAAAOC/AAAAAAAA4L8AAAAAAADgvwAAAAAAAOC/AAAAAAAA4L8AAAAAAADgvwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAAC8YkDMzMzMzARtQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAAwD8AAAAAAADQPwAAAAAAANg/AAAAAAAA4D8AAAAAAADkPwAAAAAAAOg/AAAAAAAA7D8AAAAAAADwPwAAAAAAAPI/AAAAAAAA9D8AAAAAAAD2PwAAAAAAAPg/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "be133f1244a2ae516f90ebc44e39ffaa9919bbaaebbcf528b5f1cbe0c20aeb7d",
+        "prev": "6fb5667e35cce6443785fe5c6769d3c98dfab7aeb49e113d0ecab1a0bc3bb520",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3fe0000000000000"
+        },
+        "seq": 273,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 273,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA2L8AAAAAAADQvwAAAAAAAMC/AAAAAAAAAAAAAAAAAADAPwAAAAAAANA/AAAAAAAA2D8AAAAAAADgPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAADMYkDMzMzMzPxsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA0D8AAAAAAADgPwAAAAAAAOg/AAAAAAAA8D8AAAAAAAD0PwAAAAAAAPg/AAAAAAAA/D8AAAAAAAAAQAAAAAAAAMA/AAAAAAAA2D8AAAAAAADkPwAAAAAAAOw/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "36c0abc70b4623109261a2fb250816196c937c71889c9e7cdf6ee0467df1954a",
+        "prev": "be133f1244a2ae516f90ebc44e39ffaa9919bbaaebbcf528b5f1cbe0c20aeb7d",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff8000000000000"
+        },
+        "seq": 274,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 274,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA0L8AAAAAAAAAAAAAAAAAANA/AAAAAAAA4D8AAAAAAADoPwAAAAAAAPA/AAAAAAAA9D8AAAAAAAD4PwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAADcYkDMzMzMzPRsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA2D8AAAAAAADoPwAAAAAAAPI/AAAAAAAA+D8AAAAAAAD+PwAAAAAAAMA/AAAAAAAA4D8AAAAAAADsPwAAAAAAAPQ/AAAAAAAA+j8AAAAAAAAAQAAAAAAAANA/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "3aff34f68118783a48bbe29687467c8d70dbe9a76589b6547d5954ae38b712f3",
+        "prev": "36c0abc70b4623109261a2fb250816196c937c71889c9e7cdf6ee0467df1954a",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff6000000000000"
+        },
+        "seq": 275,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 275,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAAwL8AAAAAAADQPwAAAAAAAOQ/AAAAAAAA8D8AAAAAAAD2PwAAAAAAANi/AAAAAAAAAAAAAAAAAADYPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAADsYkDMzMzMzOxsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA4D8AAAAAAADwPwAAAAAAAPg/AAAAAAAAAEAAAAAAAADYPwAAAAAAAOw/AAAAAAAA9j8AAAAAAAD+PwAAAAAAANA/AAAAAAAA6D8AAAAAAAD0PwAAAAAAAPw/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "06f90c0e1748baddc8a5aff3d013992e97510b36597c55b485a3c4392c99d40d",
+        "prev": "3aff34f68118783a48bbe29687467c8d70dbe9a76589b6547d5954ae38b712f3",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff8000000000000"
+        },
+        "seq": 276,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 276,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAAAAAAAAAAAADgPwAAAAAAAPA/AAAAAAAA+D8AAAAAAADAvwAAAAAAANg/AAAAAAAA7D8AAAAAAAD2PwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAAD8YkDMzMzMzORsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA5D8AAAAAAAD0PwAAAAAAAP4/AAAAAAAA2D8AAAAAAADwPwAAAAAAAPo/AAAAAAAAwD8AAAAAAADoPwAAAAAAAPY/AAAAAAAAAEAAAAAAAADgPwAAAAAAAPI/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "5a471194c4342914d199272fdd33b96f7e2765ce9980d6535c3577ddda0826c2",
+        "prev": "06f90c0e1748baddc8a5aff3d013992e97510b36597c55b485a3c4392c99d40d",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff6000000000000"
+        },
+        "seq": 277,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 277,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAAwD8AAAAAAADoPwAAAAAAAPY/AAAAAAAAwL8AAAAAAADgPwAAAAAAAPI/AAAAAAAA2L8AAAAAAADQPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAAAMY0DMzMzMzNxsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA6D8AAAAAAAD4PwAAAAAAAMA/AAAAAAAA7D8AAAAAAAD6PwAAAAAAANA/AAAAAAAA8D8AAAAAAAD8PwAAAAAAANg/AAAAAAAA8j8AAAAAAAD+PwAAAAAAAOA/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "a7767fe28c3be48b200fccda37e1bab14f68d20c3b9ce8f9ba66aec83ae3a487",
+        "prev": "5a471194c4342914d199272fdd33b96f7e2765ce9980d6535c3577ddda0826c2",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff4000000000000"
+        },
+        "seq": 278,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 278,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA0D8AAAAAAADwPwAAAAAAANi/AAAAAAAA2D8AAAAAAADyPwAAAAAAANC/AAAAAAAA4D8AAAAAAAD0PwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAAAcY0DMzMzMzNRsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA7D8AAAAAAAD8PwAAAAAAAOA/AAAAAAAA9j8AAAAAAADAPwAAAAAAAPA/AAAAAAAA/j8AAAAAAADkPwAAAAAAAPg/AAAAAAAA0D8AAAAAAADyPwAAAAAAAABA",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "6f05ac226701228b68377002cb74aa35b6acd48f4bc5c4e0d71d5771c8337d7b",
+        "prev": "a7767fe28c3be48b200fccda37e1bab14f68d20c3b9ce8f9ba66aec83ae3a487",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff6000000000000"
+        },
+        "seq": 279,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 279,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA2D8AAAAAAAD0PwAAAAAAAAAAAAAAAAAA7D8AAAAAAADYvwAAAAAAAOA/AAAAAAAA9j8AAAAAAADAPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAAAsY0DMzMzMzMxsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA8D8AAAAAAAAAQAAAAAAAAOw/AAAAAAAA/j8AAAAAAADoPwAAAAAAAPw/AAAAAAAA5D8AAAAAAAD6PwAAAAAAAOA/AAAAAAAA+D8AAAAAAADYPwAAAAAAAPY/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "8aad8bcd85e9602efc00fbf6439975c775975bfe4760f2792a0dd596bf8595c8",
+        "prev": "6f05ac226701228b68377002cb74aa35b6acd48f4bc5c4e0d71d5771c8337d7b",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff8000000000000"
+        },
+        "seq": 280,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 280,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA4D8AAAAAAAD4PwAAAAAAANg/AAAAAAAA9j8AAAAAAADQPwAAAAAAAPQ/AAAAAAAAwD8AAAAAAADyPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAAA8Y0DMzMzMzMRsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA8j8AAAAAAADAPwAAAAAAAPQ/AAAAAAAA0D8AAAAAAAD2PwAAAAAAANg/AAAAAAAA+D8AAAAAAADgPwAAAAAAAPo/AAAAAAAA5D8AAAAAAAD8PwAAAAAAAOg/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "51bd8ebe8433050d61db6f6ad61132259eb1c02b85a188b3c9cb287d5013d6ef",
+        "prev": "8aad8bcd85e9602efc00fbf6439975c775975bfe4760f2792a0dd596bf8595c8",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff0000000000000"
+        },
+        "seq": 281,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 281,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA5D8AAAAAAADYvwAAAAAAAOg/AAAAAAAA0L8AAAAAAADsPwAAAAAAAMC/AAAAAAAA8D8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAABMY0DMzMzMzLxsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA9D8AAAAAAADYPwAAAAAAAPo/AAAAAAAA6D8AAAAAAAAAQAAAAAAAAPI/AAAAAAAA0D8AAAAAAAD4PwAAAAAAAOQ/AAAAAAAA/j8AAAAAAADwPwAAAAAAAMA/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "98395ca6b0f208acc3ebeb918324061dc9daee902756cab029aabb4083fc2a72",
+        "prev": "51bd8ebe8433050d61db6f6ad61132259eb1c02b85a188b3c9cb287d5013d6ef",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff8000000000000"
+        },
+        "seq": 282,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 282,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA6D8AAAAAAADAvwAAAAAAAPI/AAAAAAAA0D8AAAAAAAD4PwAAAAAAAOQ/AAAAAAAA0L8AAAAAAADwPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAABcY0DMzMzMzLRsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA9j8AAAAAAADkPwAAAAAAAABAAAAAAAAA9D8AAAAAAADgPwAAAAAAAP4/AAAAAAAA8j8AAAAAAADYPwAAAAAAAPw/AAAAAAAA8D8AAAAAAADQPwAAAAAAAPo/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "07472c6e5f7cc7e0cf648a9f5cbb6ecb6e515d673c2d7125ede216db3d37900a",
+        "prev": "98395ca6b0f208acc3ebeb918324061dc9daee902756cab029aabb4083fc2a72",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff8000000000000"
+        },
+        "seq": 283,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 283,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA7D8AAAAAAADAPwAAAAAAAPg/AAAAAAAA6D8AAAAAAAAAAAAAAAAAAPY/AAAAAAAA5D8AAAAAAADAvwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAABsY0DMzMzMzKxsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA+D8AAAAAAADsPwAAAAAAANA/AAAAAAAA/D8AAAAAAADyPwAAAAAAAOA/AAAAAAAAAEAAAAAAAAD2PwAAAAAAAOg/AAAAAAAAwD8AAAAAAAD6PwAAAAAAAPA/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "f4f43ce299603a08e7a3270736099b7540561ef08386a82b5edeac853e73ca52",
+        "prev": "07472c6e5f7cc7e0cf648a9f5cbb6ecb6e515d673c2d7125ede216db3d37900a",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff8000000000000"
+        },
+        "seq": 284,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 284,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA8D8AAAAAAADYPwAAAAAAANC/AAAAAAAA9D8AAAAAAADkPwAAAAAAAAAAAAAAAAAA+D8AAAAAAADsPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAAB8Y0DMzMzMzKRsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA+j8AAAAAAADyPwAAAAAAAOQ/AAAAAAAAwD8AAAAAAAD8PwAAAAAAAPQ/AAAAAAAA6D8AAAAAAADQPwAAAAAAAP4/AAAAAAAA9j8AAAAAAADsPwAAAAAAANg/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "bc7fed7fb45b25226642099378e6308f4c8bd5387971e77603171ed88e86088f",
+        "prev": "f4f43ce299603a08e7a3270736099b7540561ef08386a82b5edeac853e73ca52",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff4000000000000"
+        },
+        "seq": 285,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 285,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA8j8AAAAAAADkPwAAAAAAAMA/AAAAAAAA2L8AAAAAAAD0PwAAAAAAAOg/AAAAAAAA0D8AAAAAAADQvwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAACMY0DMzMzMzJxsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA/D8AAAAAAAD2PwAAAAAAAPA/AAAAAAAA5D8AAAAAAADQPwAAAAAAAABAAAAAAAAA+j8AAAAAAAD0PwAAAAAAAOw/AAAAAAAA4D8AAAAAAADAPwAAAAAAAP4/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "9fcf9688d5c7f6def069b99aa0dbbfe9b794957ed43b32b739593a56f5358b0d",
+        "prev": "bc7fed7fb45b25226642099378e6308f4c8bd5387971e77603171ed88e86088f",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff8000000000000"
+        },
+        "seq": 286,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 286,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA9D8AAAAAAADsPwAAAAAAAOA/AAAAAAAAwD8AAAAAAADQvwAAAAAAAPg/AAAAAAAA8j8AAAAAAADoPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAACcY0DMzMzMzJRsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA/j8AAAAAAAD6PwAAAAAAAPY/AAAAAAAA8j8AAAAAAADsPwAAAAAAAOQ/AAAAAAAA2D8AAAAAAADAPwAAAAAAAABAAAAAAAAA/D8AAAAAAAD4PwAAAAAAAPQ/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "6d2120e44fabcdd97d108034249cf53c0de9b96b677f80c91f505b7bc6f8c9b5",
+        "prev": "9fcf9688d5c7f6def069b99aa0dbbfe9b794957ed43b32b739593a56f5358b0d",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff6000000000000"
+        },
+        "seq": 287,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 287,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA9j8AAAAAAADyPwAAAAAAAOw/AAAAAAAA5D8AAAAAAADYPwAAAAAAAMA/AAAAAAAAwL8AAAAAAADYvwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAACsY0DMzMzMzIxsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAAAEAAAAAAAAD+PwAAAAAAAPw/AAAAAAAA+j8AAAAAAAD4PwAAAAAAAPY/AAAAAAAA9D8AAAAAAADyPwAAAAAAAPA/AAAAAAAA7D8AAAAAAADoPwAAAAAAAOQ/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "b406cf6110ffe44d3c3f0d33b0ce11aa9307f2109ab4f3d420a8fbb6bef821b6",
+        "prev": "6d2120e44fabcdd97d108034249cf53c0de9b96b677f80c91f505b7bc6f8c9b5",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff8000000000000"
+        },
+        "seq": 288,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 288,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA+D8AAAAAAAD2PwAAAAAAAPQ/AAAAAAAA8j8AAAAAAADwPwAAAAAAAOw/AAAAAAAA6D8AAAAAAADkPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAAC8Y0DMzMzMzIRsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "53c2ae4dde3b45e2a4df10c2902d6df9f95af896e4ac8e6646f713ef338bcae3",
+        "prev": "b406cf6110ffe44d3c3f0d33b0ce11aa9307f2109ab4f3d420a8fbb6bef821b6",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "bfe0000000000000"
+        },
+        "seq": 289,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 289,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA4L8AAAAAAADgvwAAAAAAAOC/AAAAAAAA4L8AAAAAAADgvwAAAAAAAOC/AAAAAAAA4L8AAAAAAADgvwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAADMY0DMzMzMzHxsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAAwD8AAAAAAADQPwAAAAAAANg/AAAAAAAA4D8AAAAAAADkPwAAAAAAAOg/AAAAAAAA7D8AAAAAAADwPwAAAAAAAPI/AAAAAAAA9D8AAAAAAAD2PwAAAAAAAPg/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "b5d418c3e82bf8077a169ed33c19834166e8b25af528eed506568f1c33060a05",
+        "prev": "53c2ae4dde3b45e2a4df10c2902d6df9f95af896e4ac8e6646f713ef338bcae3",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3fe0000000000000"
+        },
+        "seq": 290,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 290,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA2L8AAAAAAADQvwAAAAAAAMC/AAAAAAAAAAAAAAAAAADAPwAAAAAAANA/AAAAAAAA2D8AAAAAAADgPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAADcY0DMzMzMzHRsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA0D8AAAAAAADgPwAAAAAAAOg/AAAAAAAA8D8AAAAAAAD0PwAAAAAAAPg/AAAAAAAA/D8AAAAAAAAAQAAAAAAAAMA/AAAAAAAA2D8AAAAAAADkPwAAAAAAAOw/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "6105bef6b6b9e767a1188fe3f18ab208f9a8b7f44854bca06d1bc08c34f3de09",
+        "prev": "b5d418c3e82bf8077a169ed33c19834166e8b25af528eed506568f1c33060a05",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff8000000000000"
+        },
+        "seq": 291,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 291,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA0L8AAAAAAAAAAAAAAAAAANA/AAAAAAAA4D8AAAAAAADoPwAAAAAAAPA/AAAAAAAA9D8AAAAAAAD4PwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAADsY0DMzMzMzGxsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA2D8AAAAAAADoPwAAAAAAAPI/AAAAAAAA+D8AAAAAAAD+PwAAAAAAAMA/AAAAAAAA4D8AAAAAAADsPwAAAAAAAPQ/AAAAAAAA+j8AAAAAAAAAQAAAAAAAANA/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "e55c4a51a863f1cd554dc41a0da367762200ccc4d6fe3867aa833f8856639dd6",
+        "prev": "6105bef6b6b9e767a1188fe3f18ab208f9a8b7f44854bca06d1bc08c34f3de09",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff6000000000000"
+        },
+        "seq": 292,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 292,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAAwL8AAAAAAADQPwAAAAAAAOQ/AAAAAAAA8D8AAAAAAAD2PwAAAAAAANi/AAAAAAAAAAAAAAAAAADYPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAAD8Y0DMzMzMzGRsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA4D8AAAAAAADwPwAAAAAAAPg/AAAAAAAAAEAAAAAAAADYPwAAAAAAAOw/AAAAAAAA9j8AAAAAAAD+PwAAAAAAANA/AAAAAAAA6D8AAAAAAAD0PwAAAAAAAPw/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "06e8ad05310721b996d7a696203473eb7e914e70fbdf7c136d44be1facfdf9ae",
+        "prev": "e55c4a51a863f1cd554dc41a0da367762200ccc4d6fe3867aa833f8856639dd6",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff8000000000000"
+        },
+        "seq": 293,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 293,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAAAAAAAAAAAADgPwAAAAAAAPA/AAAAAAAA+D8AAAAAAADAvwAAAAAAANg/AAAAAAAA7D8AAAAAAAD2PwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAAAMZEDMzMzMzFxsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA5D8AAAAAAAD0PwAAAAAAAP4/AAAAAAAA2D8AAAAAAADwPwAAAAAAAPo/AAAAAAAAwD8AAAAAAADoPwAAAAAAAPY/AAAAAAAAAEAAAAAAAADgPwAAAAAAAPI/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "e6e85b8d39874faf77f6197491366076789160c0f9aa363107252273dee641d4",
+        "prev": "06e8ad05310721b996d7a696203473eb7e914e70fbdf7c136d44be1facfdf9ae",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff6000000000000"
+        },
+        "seq": 294,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 294,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAAwD8AAAAAAADoPwAAAAAAAPY/AAAAAAAAwL8AAAAAAADgPwAAAAAAAPI/AAAAAAAA2L8AAAAAAADQPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAAAcZEDMzMzMzFRsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA6D8AAAAAAAD4PwAAAAAAAMA/AAAAAAAA7D8AAAAAAAD6PwAAAAAAANA/AAAAAAAA8D8AAAAAAAD8PwAAAAAAANg/AAAAAAAA8j8AAAAAAAD+PwAAAAAAAOA/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "0b34a43f946e6b984a4434d844f3d64a8e7e43c12b273f71127b61981d6fb8dc",
+        "prev": "e6e85b8d39874faf77f6197491366076789160c0f9aa363107252273dee641d4",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff4000000000000"
+        },
+        "seq": 295,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 295,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA0D8AAAAAAADwPwAAAAAAANi/AAAAAAAA2D8AAAAAAADyPwAAAAAAANC/AAAAAAAA4D8AAAAAAAD0PwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAAAsZEDMzMzMzExsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA7D8AAAAAAAD8PwAAAAAAAOA/AAAAAAAA9j8AAAAAAADAPwAAAAAAAPA/AAAAAAAA/j8AAAAAAADkPwAAAAAAAPg/AAAAAAAA0D8AAAAAAADyPwAAAAAAAABA",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "449c00f5b3115d2f385ea11e1691e3616d4d8f7eff3c4523928c885644fe80bc",
+        "prev": "0b34a43f946e6b984a4434d844f3d64a8e7e43c12b273f71127b61981d6fb8dc",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff6000000000000"
+        },
+        "seq": 296,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 296,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA2D8AAAAAAAD0PwAAAAAAAAAAAAAAAAAA7D8AAAAAAADYvwAAAAAAAOA/AAAAAAAA9j8AAAAAAADAPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAAA8ZEDMzMzMzERsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA8D8AAAAAAAAAQAAAAAAAAOw/AAAAAAAA/j8AAAAAAADoPwAAAAAAAPw/AAAAAAAA5D8AAAAAAAD6PwAAAAAAAOA/AAAAAAAA+D8AAAAAAADYPwAAAAAAAPY/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "8a866da321bdaca0cd83ab9cc3518e576574670ecdd25160b4b4c3bb63a2ab91",
+        "prev": "449c00f5b3115d2f385ea11e1691e3616d4d8f7eff3c4523928c885644fe80bc",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff8000000000000"
+        },
+        "seq": 297,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 297,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA4D8AAAAAAAD4PwAAAAAAANg/AAAAAAAA9j8AAAAAAADQPwAAAAAAAPQ/AAAAAAAAwD8AAAAAAADyPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAABMZEDMzMzMzDxsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA8j8AAAAAAADAPwAAAAAAAPQ/AAAAAAAA0D8AAAAAAAD2PwAAAAAAANg/AAAAAAAA+D8AAAAAAADgPwAAAAAAAPo/AAAAAAAA5D8AAAAAAAD8PwAAAAAAAOg/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "3e6d83d65e1ae9298f03eaf9ab1d7f06c7441744a6a963a6718681ff2632afc9",
+        "prev": "8a866da321bdaca0cd83ab9cc3518e576574670ecdd25160b4b4c3bb63a2ab91",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff0000000000000"
+        },
+        "seq": 298,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 298,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA5D8AAAAAAADYvwAAAAAAAOg/AAAAAAAA0L8AAAAAAADsPwAAAAAAAMC/AAAAAAAA8D8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      },
+      {
+        "action": {
+          "f64a": "AAAAAABcZEDMzMzMzDRsQA==",
+          "shape": [
+            2
+          ]
+        },
+        "action_src": "policy",
+        "brake_margin": {
+          "f64": "404499999999999a"
+        },
+        "clamped_dims": 0,
+        "f": {
+          "f64a": "AAAAAAAA9D8AAAAAAADYPwAAAAAAAPo/AAAAAAAA6D8AAAAAAAAAQAAAAAAAAPI/AAAAAAAA0D8AAAAAAAD4PwAAAAAAAOQ/AAAAAAAA/j8AAAAAAADwPwAAAAAAAMA/",
+          "shape": [
+            12
+          ]
+        },
+        "fired": 0,
+        "handoff_seq": null,
+        "hash": "dcc2e95efaa05008bc2ffa7d565f40b60af8ac39b85e9db135463991da570d1a",
+        "prev": "3e6d83d65e1ae9298f03eaf9ab1d7f06c7441744a6a963a6718681ff2632afc9",
+        "prev_state": "armed",
+        "reason": "ok",
+        "s": {
+          "f64": "3ff8000000000000"
+        },
+        "seq": 299,
+        "state": "armed",
+        "status": "nominal",
+        "substituted": false,
+        "t": 299,
+        "tau": {
+          "f64": "400db6db6db6db6e"
+        },
+        "trips": 0,
+        "valid": 255,
+        "violation_reached_env": false,
+        "window_hits": 0,
+        "z": {
+          "f64a": "AAAAAAAA6D8AAAAAAADAvwAAAAAAAPI/AAAAAAAA0D8AAAAAAAD4PwAAAAAAAOQ/AAAAAAAA0L8AAAAAAADwPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "shape": [
+            12
+          ]
+        }
+      }
+    ],
+    "ticks_policy": "tail32",
+    "timing_chain_head": "d7cc307bfc2b6de82ff13abf3d02c48a32c1851b20f5daa92f2537581eece2ee",
+    "timing_events": 300,
+    "verdict_chain_head": "dcc2e95efaa05008bc2ffa7d565f40b60af8ac39b85e9db135463991da570d1a",
+    "verdict_events": 300
+  },
+  "body_digest": "018e68d5a8978baec8d431629c0aa1906ec949fc3eab2fa7ec2930afa33f8b8c",
+  "pubkey": "03a107bff3ce10be1d70dd18e74bc09967e4d6309ba50d5f1ddc8664125531b8",
+  "sig": "22317b7bb9668c67c8e3068be41ffd24a217041383b4e64ed8756b29d126a8630e4047629834a7502a1abcd114e6d6f5a99c636ecfefa9ccf83791ddbfc6cb08"
+}

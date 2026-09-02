@@ -1,5 +1,4 @@
 // SPDX-License-Identifier: MIT
-//! OWNER: WP-1. Stub written by WP-0; replace the bodies, keep the signatures.
 //! Features and the runtime calibration table.
 
 use serde::{Deserialize, Serialize};
@@ -43,13 +42,29 @@ impl Feat {
         "ext2",
         "ext3",
     ];
+    /// Every variant in id order (`ALL[j] as usize == j`).
+    pub const ALL: [Feat; NFEAT] = [
+        Feat::Tce,
+        Feat::Acc,
+        Feat::AcmNeg,
+        Feat::Njr,
+        Feat::Reach,
+        Feat::PathIneff,
+        Feat::Stall,
+        Feat::SpeedPeak,
+        Feat::Ext0,
+        Feat::Ext1,
+        Feat::Ext2,
+        Feat::Ext3,
+    ];
     /// tce acc acm_neg njr reach speed_peak: updated at a chunk boundary, held between
     pub const CHUNK_BOUNDARY_MASK: u32 = 0b0000_1001_1111;
     /// path_ineff stall ext0..3: updated every tick
     pub const PER_TICK_MASK: u32 = 0b1111_0110_0000;
 
-    pub fn from_name(_s: &str) -> Option<Feat> {
-        todo!("WP-1")
+    /// Exact (case-sensitive) lookup in `NAMES`.
+    pub fn from_name(s: &str) -> Option<Feat> {
+        Self::NAMES.iter().position(|n| *n == s).map(|i| Self::ALL[i])
     }
 
     #[inline]
@@ -58,7 +73,7 @@ impl Feat {
     }
 
     pub fn name(self) -> &'static str {
-        todo!("WP-1")
+        Self::NAMES[self as usize]
     }
 }
 
@@ -109,7 +124,8 @@ pub struct CalibrationC {
 }
 
 impl CalibrationC {
-    /// mask 0, gate DISARMED, tau +INFINITY, digest zero (scale 1.0 so a stray division stays finite).
+    /// mask 0, gate DISARMED, tau +INFINITY, t_grid 1, digest zero; center 0 and scale 1 so a stray
+    /// standardisation of an unmasked channel stays finite and equal to the raw feature.
     pub const DISARMED: Self = Self {
         method: CalMethod::Static,
         alpha_num: 0,
@@ -145,5 +161,48 @@ pub fn bin_of(t: u32, horizon_ticks: u32, t_grid: u16) -> usize {
         (g - 1) as usize
     } else {
         b as usize
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn names_and_ids_agree() {
+        for (j, f) in Feat::ALL.iter().enumerate() {
+            assert_eq!(*f as usize, j);
+            assert_eq!(f.name(), Feat::NAMES[j]);
+            assert_eq!(Feat::from_name(Feat::NAMES[j]), Some(*f));
+            assert_eq!(f.bit(), 1u32 << j);
+        }
+        assert_eq!(Feat::from_name("TCE"), None);
+        assert_eq!(Feat::from_name(""), None);
+        assert_eq!(Feat::CHUNK_BOUNDARY_MASK | Feat::PER_TICK_MASK, (1u32 << NFEAT) - 1);
+        assert_eq!(Feat::CHUNK_BOUNDARY_MASK & Feat::PER_TICK_MASK, 0);
+        let boundary = [Feat::Tce, Feat::Acc, Feat::AcmNeg, Feat::Njr, Feat::Reach, Feat::SpeedPeak];
+        assert_eq!(boundary.iter().fold(0, |m, f| m | f.bit()), Feat::CHUNK_BOUNDARY_MASK);
+    }
+
+    #[test]
+    fn bin_of_is_integer_and_saturates() {
+        assert_eq!(bin_of(0, 300, 100), 0);
+        assert_eq!(bin_of(2, 300, 100), 0);
+        assert_eq!(bin_of(3, 300, 100), 1);
+        assert_eq!(bin_of(299, 300, 100), 99);
+        assert_eq!(bin_of(300, 300, 100), 99);
+        assert_eq!(bin_of(1_000_000, 300, 100), 99);
+        assert_eq!(bin_of(123, 300, 1), 0);
+        assert_eq!(bin_of(5, 0, 100), 99);
+    }
+
+    #[test]
+    fn disarmed_never_fires() {
+        let c = CalibrationC::DISARMED;
+        assert!(!c.armed());
+        assert_eq!(c.tau, f64::INFINITY);
+        assert_eq!(c.t_grid, 1);
+        assert_eq!(c.bin(299), 0);
+        assert_eq!(c.gate, GateSpec::DISARMED);
     }
 }

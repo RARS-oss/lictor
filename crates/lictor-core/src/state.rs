@@ -50,3 +50,30 @@ pub struct EpisodeInit {
     pub delay_steps: u16,
     pub exec: ExecMode,
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn default_is_idle_and_predicates_partition_the_states() {
+        assert_eq!(FuseState::default(), FuseState::Idle);
+        let stop = [
+            FuseState::Braking,
+            FuseState::Held,
+            FuseState::Escalated,
+            FuseState::Fault,
+            FuseState::Terminated,
+        ];
+        let run = [FuseState::Idle, FuseState::Armed, FuseState::Watching, FuseState::Clamped];
+        for s in stop {
+            assert!(s.is_stop(), "{s:?}");
+        }
+        for s in run {
+            assert!(!s.is_stop() && !s.is_terminal(), "{s:?}");
+        }
+        assert!(FuseState::Fault.is_terminal() && FuseState::Terminated.is_terminal());
+        assert!(!FuseState::Held.is_terminal() && !FuseState::Escalated.is_terminal());
+        assert!(FuseState::Idle < FuseState::Armed && FuseState::Fault < FuseState::Terminated);
+    }
+}

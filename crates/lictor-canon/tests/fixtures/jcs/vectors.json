@@ -1,0 +1,72 @@
+[
+  {
+    "name": "rfc8785_section_3_2_3_example (the RFC's 56.0 written as 56: the float-free profile has no reals)",
+    "input": "{\n  \"1\": {\"f\": {\"f\": \"hi\",\"F\": 5} ,\"\\n\": 56},\n  \"10\": { },\n  \"\": \"empty\",\n  \"a\": { },\n  \"111\": [ {\"e\": \"yes\",\"E\": \"no\" } ],\n  \"A\": { }\n}",
+    "expected": "{\"\":\"empty\",\"1\":{\"\\n\":56,\"f\":{\"F\":5,\"f\":\"hi\"}},\"10\":{},\"111\":[{\"E\":\"no\",\"e\":\"yes\"}],\"A\":{},\"a\":{}}"
+  },
+  {
+    "name": "rfc8785_appendix_b_utf16_sorting",
+    "input": "{\n  \"\\u20ac\": \"Euro Sign\",\n  \"\\r\": \"Carriage Return\",\n  \"\\ufb33\": \"Hebrew Letter Dalet With Dagesh\",\n  \"1\": \"One\",\n  \"\\ud83d\\ude00\": \"Emoji: Grinning Face\",\n  \"\\u0080\": \"Control\",\n  \"\\u00f6\": \"Latin Small Letter O With Diaeresis\"\n}",
+    "expected": "{\"\\r\":\"Carriage Return\",\"1\":\"One\",\"\u0080\":\"Control\",\"\u00f6\":\"Latin Small Letter O With Diaeresis\",\"\u20ac\":\"Euro Sign\",\"\ud83d\ude00\":\"Emoji: Grinning Face\",\"\ufb33\":\"Hebrew Letter Dalet With Dagesh\"}"
+  },
+  {
+    "name": "rfc8785_arrays_example",
+    "input": "[56, {\"d\": true, \"10\": null, \"1\": [ ]}]",
+    "expected": "[56,{\"1\":[],\"10\":null,\"d\":true}]"
+  },
+  {
+    "name": "rfc8785_section_3_2_2_2_string_escaping (short forms, lowercase \\u00xx, DEL and slash verbatim)",
+    "input": "{\"s\": \"\\u0000\\u0001\\b\\t\\n\\f\\r\\u001f\\u0022\\u005c\\u002f\\u007f\\u00e9\\u20ac\"}",
+    "expected": "{\"s\":\"\\u0000\\u0001\\b\\t\\n\\f\\r\\u001f\\\"\\\\/\u007f\u00e9\u20ac\"}"
+  },
+  {
+    "name": "unicode_values_are_utf8_not_escaped",
+    "input": "{\"k\": \"\\u0ca0_\\u0ca0 \\ud83d\\ude00\"}",
+    "expected": "{\"k\":\"\u0ca0_\u0ca0 \ud83d\ude00\"}"
+  },
+  {
+    "name": "integers_at_the_safe_limit",
+    "input": "{\"max\": 9007199254740991, \"min\": -9007199254740991, \"zero\": 0, \"neg\": -1}",
+    "expected": "{\"max\":9007199254740991,\"min\":-9007199254740991,\"neg\":-1,\"zero\":0}"
+  },
+  {
+    "name": "nested_empty_containers_and_literals",
+    "input": "{\"b\": [[], {}, [[]], true, false, null], \"a\": {}}",
+    "expected": "{\"a\":{},\"b\":[[],{},[[]],true,false,null]}"
+  },
+  {
+    "name": "key_sort_is_by_code_unit_not_by_locale_or_length",
+    "input": "{\"b\": 1, \"B\": 2, \"a10\": 3, \"a2\": 4, \"_\": 5, \"a\": 6, \"aa\": 7, \"~\": 8}",
+    "expected": "{\"B\":2,\"_\":5,\"a\":6,\"a10\":3,\"a2\":4,\"aa\":7,\"b\":1,\"~\":8}"
+  },
+  {
+    "name": "float_rejected_even_when_integral",
+    "input": "{\"a\": [1, {\"b\": 56.0}]}",
+    "error": "float in canonical body at $.a[1].b"
+  },
+  {
+    "name": "float_rejected_exponent_form",
+    "input": "{\"x\": 1e3}",
+    "error": "float in canonical body at $.x"
+  },
+  {
+    "name": "float_rejected_fraction",
+    "input": "[0.5]",
+    "error": "float in canonical body at $[0]"
+  },
+  {
+    "name": "integer_above_2_53_rejected",
+    "input": "{\"n\": 9007199254740992}",
+    "error": "integer out of +-2^53-1 at $.n"
+  },
+  {
+    "name": "integer_below_minus_2_53_rejected",
+    "input": "{\"n\": -9007199254740992}",
+    "error": "integer out of +-2^53-1 at $.n"
+  },
+  {
+    "name": "f64hex_and_f64a_objects_are_ordinary_objects",
+    "input": "{\"s\": {\"f64\": \"3ff199999999999a\"}, \"a\": {\"shape\": [2], \"f64a\": \"AAAAAADAKkBmZmZmZsZyQA==\"}}",
+    "expected": "{\"a\":{\"f64a\":\"AAAAAADAKkBmZmZmZsZyQA==\",\"shape\":[2]},\"s\":{\"f64\":\"3ff199999999999a\"}}"
+  }
+]
