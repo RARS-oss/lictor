@@ -10,12 +10,15 @@ env:
   RUSTFLAGS: -D warnings
   CARGO_TARGET_DIR: ${{ github.workspace }}/target
 
+permissions:
+  contents: read
+
 jobs:
   rust:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87 # stable
         with:
           components: rustfmt, clippy
       - name: fmt
@@ -33,4 +36,4 @@ jobs:
       - name: python (no GPU, no torch)
         run: bash scripts/ci_python.sh
       - name: stdlib receipt verifier
-        run: python3 adapters/verify_receipt.py crates/lictor-receipt/tests/fixtures/receipt/receipt_000007.json | grep -q '^OK'
+        run: python3 adapters/verify_receipt.py crates/lictor-receipt/tests/fixtures/receipt/receipt_000007.json --pubkey 03a107bff3ce10be1d70dd18e74bc09967e4d6309ba50d5f1ddc8664125531b8 | grep -q '^OK'  # the committed test key, TEST_PUBKEYS[0]

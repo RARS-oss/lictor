@@ -8,7 +8,9 @@
 use std::path::{Path, PathBuf};
 
 use clap::Subcommand;
-use lictor_receipt::{append_ledger, read_ledger, verify, verify_ledger, LedgerEntry, SignedReceipt, LEDGER_SCHEMA};
+use lictor_receipt::{
+    append_ledger, read_ledger, verify, verify_ledger, LedgerEntry, SignedReceipt, LEDGER_SCHEMA,
+};
 
 use crate::render::{json_out, print_lines, sanitize, short, status};
 
@@ -63,22 +65,20 @@ pub fn verify_file(p: &Path) -> anyhow::Result<VerifyOut> {
     let entries: Vec<LedgerEntry> = read_ledger(p).map_err(|e| anyhow::anyhow!("{e}"))?;
     let rep = verify_ledger(&entries);
     let header = ledger_header(p);
-    let run_id = header.as_ref().and_then(|h| h.get("run_id")).and_then(|v| v.as_str()).unwrap_or("").to_string();
-    let arm_id = header.as_ref().and_then(|h| h.get("arm_id")).and_then(|v| v.as_str()).unwrap_or("").to_string();
+    let run_id =
+        header.as_ref().and_then(|h| h.get("run_id")).and_then(|v| v.as_str()).unwrap_or("").to_string();
+    let arm_id =
+        header.as_ref().and_then(|h| h.get("arm_id")).and_then(|v| v.as_str()).unwrap_or("").to_string();
     let fuse_ok = entries.iter().filter(|e| e.fuse_ok).count() as u32;
     let mut lines = Vec::new();
     if rep.chain_ok {
-        let pct = if rep.episodes == 0 { 0.0 } else { 100.0 * f64::from(rep.successes) / f64::from(rep.episodes) };
+        let pct =
+            if rep.episodes == 0 { 0.0 } else { 100.0 * f64::from(rep.successes) / f64::from(rep.episodes) };
         lines.push(format!(
             "  episodes {}   chain ok    success {}/{} ({:.1}%)   stops {}   escalated {}   fuse_ok {}/{}",
             rep.episodes, rep.successes, rep.episodes, pct, rep.stops, rep.escalations, fuse_ok, rep.episodes
         ));
-        lines.push(format!(
-            "  head {}   run {}   arm {}",
-            rep.head,
-            sanitize(&run_id),
-            sanitize(&arm_id)
-        ));
+        lines.push(format!("  head {}   run {}   arm {}", rep.head, sanitize(&run_id), sanitize(&arm_id)));
         let foreign = entries.iter().filter(|e| e.run_id != run_id || e.arm_id != arm_id).count();
         if !run_id.is_empty() && foreign > 0 {
             lines.push(format!("  warning: {foreign} entries name a different run/arm than the header"));
@@ -145,7 +145,8 @@ pub fn run(a: Args, json: bool) -> anyhow::Result<i32> {
                 );
                 return Ok(1);
             }
-            let entry = append_ledger(&ledger, &sr).map_err(|e| anyhow::anyhow!("{}: {e}", ledger.display()))?;
+            let entry =
+                append_ledger(&ledger, &sr).map_err(|e| anyhow::anyhow!("{}: {e}", ledger.display()))?;
             let out = AppendOut {
                 seq: entry.seq,
                 hash: entry.hash.clone(),
@@ -158,7 +159,11 @@ pub fn run(a: Args, json: bool) -> anyhow::Result<i32> {
             } else {
                 print_lines(&[
                     status("appended", "ok", &format!("seq={} hash={}", out.seq, out.hash)),
-                    status("receipt", "ok", &format!("digest {} (key {})", short(&out.receipt_digest), short(&sr.pubkey))),
+                    status(
+                        "receipt",
+                        "ok",
+                        &format!("digest {} (key {})", short(&out.receipt_digest), short(&sr.pubkey)),
+                    ),
                 ]);
             }
             Ok(0)

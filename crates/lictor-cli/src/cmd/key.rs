@@ -81,7 +81,8 @@ pub fn run(a: Args, json: bool) -> anyhow::Result<i32> {
                 eprintln!("lictor key init: refused: {e}");
                 return Ok(2);
             }
-            let out = KeyOut { pubkey: pubkey_hex(&seed), path: display(&path), role, mode: MODE_TEXT.to_string() };
+            let out =
+                KeyOut { pubkey: pubkey_hex(&seed), path: display(&path), role, mode: MODE_TEXT.to_string() };
             if json {
                 json_out(&out)?;
             } else {

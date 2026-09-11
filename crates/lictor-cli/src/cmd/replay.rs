@@ -139,8 +139,13 @@ fn one_pass(inp: &ReplayInput<'_>) -> anyhow::Result<Pass> {
             Response::Error(e) => {
                 pass.errors += 1;
                 if pass.first_error.is_none() {
-                    pass.first_error =
-                        Some(format!("id={} code={} fatal={}: {}", e.id, e.code, e.fatal, sanitize(&e.message)));
+                    pass.first_error = Some(format!(
+                        "id={} code={} fatal={}: {}",
+                        e.id,
+                        e.code,
+                        e.fatal,
+                        sanitize(&e.message)
+                    ));
                 }
             }
             Response::HelloOk(_) | Response::EpisodeOk(_) | Response::ByeOk { .. } => {}
@@ -185,9 +190,15 @@ pub fn replay(inp: &ReplayInput<'_>, repeat: u32) -> anyhow::Result<ReplayOutcom
                 .iter()
                 .zip(p.chains.iter())
                 .find(|(a, b)| a != b)
-                .map(|(a, b)| Divergence { repeat: k, tick: a.0, seq: a.1, first: a.2.clone(), other: b.2.clone() })
+                .map(|(a, b)| Divergence {
+                    repeat: k,
+                    tick: a.0,
+                    seq: a.1,
+                    first: a.2.clone(),
+                    other: b.2.clone(),
+                })
                 .or_else(|| {
-                    first.chains.iter().zip(p.chains.iter()).last().map(|(a, _)| Divergence {
+                    first.chains.iter().zip(p.chains.iter()).next_back().map(|(a, _)| Divergence {
                         repeat: k,
                         tick: a.0,
                         seq: a.1,
@@ -213,7 +224,10 @@ pub fn replay(inp: &ReplayInput<'_>, repeat: u32) -> anyhow::Result<ReplayOutcom
 pub fn render(out: &ReplayOutcome) -> Vec<String> {
     let mut lines = vec![
         format!("  ticks={}  repeats={}", out.ticks, out.repeats),
-        format!("  replays {}/{} byte-identical  verdict_chain={}", out.identical, out.repeats, out.verdict_chain),
+        format!(
+            "  replays {}/{} byte-identical  verdict_chain={}",
+            out.identical, out.repeats, out.verdict_chain
+        ),
         "  timing chain head varies (by design -- wall-clock is not replayed)".to_string(),
     ];
     let mut states = String::from("  states");

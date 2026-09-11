@@ -32,3 +32,8 @@ venv/
 Thumbs.db
 .vscode/
 .idea/
+
+# local secrets
+.env
+.env.*
+!.env.example
