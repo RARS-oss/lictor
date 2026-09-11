@@ -97,6 +97,7 @@ impl Outcome {
     }
 
     /// The check named `name`, if it ran.
+    #[allow(dead_code)] // kept for the receipt-check API; unused by the CLI path (CI builds with -D warnings)
     pub fn check(&self, name: &str) -> Option<&Check> {
         self.checks.iter().find(|c| c.name == name)
     }

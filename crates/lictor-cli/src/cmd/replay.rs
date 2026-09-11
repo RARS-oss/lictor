@@ -198,7 +198,7 @@ pub fn replay(inp: &ReplayInput<'_>, repeat: u32) -> anyhow::Result<ReplayOutcom
                     other: b.2.clone(),
                 })
                 .or_else(|| {
-                    first.chains.iter().zip(p.chains.iter()).last().map(|(a, _)| Divergence {
+                    first.chains.iter().zip(p.chains.iter()).next_back().map(|(a, _)| Divergence {
                         repeat: k,
                         tick: a.0,
                         seq: a.1,
