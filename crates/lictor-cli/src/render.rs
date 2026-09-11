@@ -193,6 +193,9 @@ mod tests {
             zeta: u32,
             alpha: u32,
         }
-        assert_eq!(pretty_sorted(&S { zeta: 1, alpha: 2 }).unwrap(), "{\n  \"alpha\": 2,\n  \"zeta\": 1\n}\n");
+        assert_eq!(
+            pretty_sorted(&S { zeta: 1, alpha: 2 }).unwrap(),
+            "{\n  \"alpha\": 2,\n  \"zeta\": 1\n}\n"
+        );
     }
 }

@@ -15,7 +15,8 @@ use std::path::{Path, PathBuf};
 use lictor_canon::{canon, sha256_hex, sha256_jcs};
 use lictor_receipt::{
     read_ledger, verify, verify_curve, verify_ledger, verify_ticks_file, verify_timing_chain, SignedCurve,
-    SignedReceipt, TickEvent, TimingEvent, VerdictCounts, LEDGER_SCHEMA, TEST_PUBKEYS, TICKS_SCHEMA, ZERO_HASH,
+    SignedReceipt, TickEvent, TimingEvent, VerdictCounts, LEDGER_SCHEMA, TEST_PUBKEYS, TICKS_SCHEMA,
+    ZERO_HASH,
 };
 
 use crate::render::{glossary, json_out, kv, notes, print_lines, sanitize, short, status};
@@ -101,7 +102,12 @@ impl Outcome {
     }
 
     fn push(&mut self, name: &str, ok: bool, st: &str, detail: &str) {
-        self.checks.push(Check { name: name.to_string(), ok, status: st.to_string(), detail: detail.to_string() });
+        self.checks.push(Check {
+            name: name.to_string(),
+            ok,
+            status: st.to_string(),
+            detail: detail.to_string(),
+        });
         self.lines.push(status(name, st, detail));
     }
 }
@@ -278,7 +284,11 @@ fn check_ledger(sr: &SignedReceipt, p: &Path) -> Result<(String, String), (Strin
     if entry.prev != prev {
         return Err((
             "FAIL".to_string(),
-            format!("ledger entry prev={} but the receipt binds ledger_prev={}", short(&entry.prev), short(&prev)),
+            format!(
+                "ledger entry prev={} but the receipt binds ledger_prev={}",
+                short(&entry.prev),
+                short(&prev)
+            ),
         ));
     }
     Ok((format!("seq={} head={}  ({} entries)", entry.seq, short(&rep.head), rep.episodes), rep.head))
@@ -296,7 +306,10 @@ fn check_curve(sr: &SignedReceipt, p: &Path, ledger_head: Option<&str>) -> Check
     if sc.body.run_id != run.run_id || sc.body.arm_id != run.arm_id {
         return Err((
             "FAIL".to_string(),
-            format!("curve is for {}/{}, receipt is {}/{}", sc.body.run_id, sc.body.arm_id, run.run_id, run.arm_id),
+            format!(
+                "curve is for {}/{}, receipt is {}/{}",
+                sc.body.run_id, sc.body.arm_id, run.run_id, run.arm_id
+            ),
         ));
     }
     match ledger_head {
@@ -308,12 +321,15 @@ fn check_curve(sr: &SignedReceipt, p: &Path, ledger_head: Option<&str>) -> Check
         )),
         Some(h) => Err((
             "FAIL".to_string(),
-            format!("curve ledger_head={} but the ledger's head is {}", short(&sc.body.ledger_head), short(h)),
+            format!(
+                "curve ledger_head={} but the ledger's head is {}",
+                short(&sc.body.ledger_head),
+                short(h)
+            ),
         )),
-        None => Ok(format!(
-            "signature ok; ledger_head={} unchecked (pass --ledger)",
-            short(&sc.body.ledger_head)
-        )),
+        None => {
+            Ok(format!("signature ok; ledger_head={} unchecked (pass --ledger)", short(&sc.body.ledger_head)))
+        }
     }
 }
 
@@ -369,7 +385,9 @@ fn check_calibration(sr: &SignedReceipt, p: &Path) -> CheckResult {
     }
     match sr.body.calibration_digest.as_deref() {
         Some(d) if d == recomputed => {}
-        Some(d) => bad.push(format!("receipt calibration_digest {} != file {}", short(d), short(&recomputed))),
+        Some(d) => {
+            bad.push(format!("receipt calibration_digest {} != file {}", short(d), short(&recomputed)))
+        }
         None => bad.push("receipt carries no calibration_digest".to_string()),
     }
     if !bad.is_empty() {
@@ -438,7 +456,12 @@ pub fn run_checks(o: &Opts) -> Outcome {
             out.push("pubkey", false, "MISMATCH", &format!(" {detail}"));
         }
     }
-    out.push("body digest", rep.digest_ok, if rep.digest_ok { "ok" } else { "FAIL" }, &short(&sr.body_digest));
+    out.push(
+        "body digest",
+        rep.digest_ok,
+        if rep.digest_ok { "ok" } else { "FAIL" },
+        &short(&sr.body_digest),
+    );
     let emb = out.embodiment_digest.as_deref().map(short).unwrap_or_else(|| "n/a".to_string());
     out.push(
         "envelope",
@@ -525,7 +548,10 @@ pub fn run_checks(o: &Opts) -> Outcome {
             (Some(r), Some(rev)) => format!("{r}@{}", short(rev)),
             (Some(r), None) => r.clone(),
             (None, _) => {
-                format!("weights={}", short(b.run.policy.get("weights_sha256").map(String::as_str).unwrap_or("")))
+                format!(
+                    "weights={}",
+                    short(b.run.policy.get("weights_sha256").map(String::as_str).unwrap_or(""))
+                )
             }
         };
         out.lines.push(kv(
@@ -569,7 +595,8 @@ pub fn run_checks(o: &Opts) -> Outcome {
 
 pub fn run(a: Args, json: bool) -> anyhow::Result<i32> {
     let Args { receipt, ticks, timing, ledger, curve, calibration, pubkey } = a;
-    let o = Opts { receipt, ticks, timing, ledger, curve, calibration, pubkey: pubkey.map(|p| p.to_lowercase()) };
+    let o =
+        Opts { receipt, ticks, timing, ledger, curve, calibration, pubkey: pubkey.map(|p| p.to_lowercase()) };
     let out = run_checks(&o);
     if json {
         json_out(&out)?;

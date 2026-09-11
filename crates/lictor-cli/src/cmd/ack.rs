@@ -11,7 +11,9 @@
 use std::path::{Path, PathBuf};
 
 use lictor_core::AckDecision;
-use lictor_receipt::{default_key_dir, load_nonces, load_seed, save_nonces, sign_ack, AckToken, HandoffRecord};
+use lictor_receipt::{
+    default_key_dir, load_nonces, load_seed, save_nonces, sign_ack, AckToken, HandoffRecord,
+};
 
 use crate::render::{glossary, json_out, kv, pretty_sorted, print_lines, sanitize, short};
 
@@ -60,8 +62,8 @@ pub fn resolve_handoff(arg: &str) -> anyhow::Result<(String, Option<HandoffRecor
     }
     let p = Path::new(arg);
     let text = std::fs::read_to_string(p).map_err(|e| anyhow::anyhow!("{}: {e}", p.display()))?;
-    let rec: HandoffRecord =
-        serde_json::from_str(&text).map_err(|e| anyhow::anyhow!("{}: not a handoff record: {e}", p.display()))?;
+    let rec: HandoffRecord = serde_json::from_str(&text)
+        .map_err(|e| anyhow::anyhow!("{}: not a handoff record: {e}", p.display()))?;
     let recomputed = rec.compute_digest()?;
     if recomputed != rec.digest {
         anyhow::bail!(
